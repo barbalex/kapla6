@@ -22,7 +22,12 @@ function App() {
       } catch (error) {
         console.log(error)
       }
-      console.log('db:', db)
+      const stati = await db.select(`
+      SELECT
+        *
+      FROM
+        status`)
+      console.log('stati:', stati)
     }
     run()
   }, [])
