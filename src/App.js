@@ -1,10 +1,32 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { fs, path } from '@tauri-apps/api'
+
 import logo from './logo.svg'
 import tauriCircles from './tauri.svg'
 import tauriWord from './wordmark.svg'
 import './App.css'
+import Database from 'tauri-plugin-sql-api'
 
 function App() {
+  useEffect(async () => {
+    const run = async () => {
+      const userPath = await path.appDir() // C:\Users\alexa\AppData\Roaming\Kapla\
+      const dataFilePath = `${userPath}kaplaConfig.json`
+      const configFile = await fs.readTextFile(dataFilePath)
+      const config = configFile ? JSON.parse(configFile) : {}
+      console.log('config:', config)
+      let db
+      try {
+        db = await Database.load(`sqlite:${config.dbPath}`)
+        console.log('getDb, db:', db)
+      } catch (error) {
+        console.log(error)
+      }
+      console.log('db:', db)
+    }
+    run()
+  }, [])
+
   return (
     <div className="App">
       <header className="App-header">
