@@ -1,4 +1,4 @@
-import { types, getParent } from 'mobx-state-tree'
+import { types, getParent, flow } from 'mobx-state-tree'
 
 import tableStandardState from '../src/tableStandardState'
 import TableRows from './TableRows'
@@ -17,14 +17,14 @@ export default types
     const store = getParent(self, 1)
 
     return {
-      fetch(table) {
+      fetch: flow(function* (table) {
         const location = store.location.toJSON()
         const activeLocation = location[0]
         const { app, addErrorMessage, setLocation } = store
         self.table = table
         let rows
         try {
-          rows = app.db.select(`SELECT * FROM ${table}`)
+          rows = yield app.db.select(`SELECT * FROM ${table}`)
         } catch (error) {
           return addErrorMessage(error.message)
         }
@@ -34,7 +34,7 @@ export default types
         if (activeLocation !== 'table') {
           setLocation(['table'])
         }
-      },
+      }),
       reset() {
         Object.keys(tableStandardState).forEach((k) => {
           self[k] = tableStandardState[k]
@@ -49,7 +49,7 @@ export default types
           row[field] = value
         }
       },
-      updateInDb(id, field, value) {
+      updateInDb: flow(function* (id, field, value) {
         const { app, addErrorMessage } = store
         // no need to do something on then
         // ui was updated on TABLE_CHANGE_STATE
@@ -62,7 +62,7 @@ export default types
           id = ${id}`
         //console.log('Store, updateInDb, sql:', sql)
         try {
-          app.db.prepare(sql).run()
+          yield app.db.execute(sql)
         } catch (error) {
           // TODO: reset ui
           console.log('Store, updateInDb, error:', error.message)
@@ -72,6 +72,6 @@ export default types
         // need to reload this table in self
         const actionName = `${self.table}OptionsGet`
         store[actionName]()
-      },
+      }),
     }
   })

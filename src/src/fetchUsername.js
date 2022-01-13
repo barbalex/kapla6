@@ -1,8 +1,10 @@
-import { invoke } from '@tauri-apps/api/tauri'
+import { tauri } from '@tauri-apps/api'
 
 const fetchUsername = async (store) => {
+  console.log('fetchUsername')
   const { setUsername } = store.app
-  const username = await invoke('get_username')
+  const username = await tauri.invoke('get_username')
+  console.log('fetchUsername, username:', username)
 
   if (username) {
     setUsername(username)

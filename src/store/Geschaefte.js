@@ -1,4 +1,4 @@
-import { types, getParent } from 'mobx-state-tree'
+import { types, getParent, flow } from 'mobx-state-tree'
 import _ from 'lodash'
 import moment from 'moment'
 
@@ -38,6 +38,7 @@ export default types
     ),
     parlVorstossTypOptions: types.array(types.union(types.string, types.null)),
     statusOptions: types.array(types.union(types.string, types.null)),
+    faelligeStatiOptions: types.array(types.union(types.string, types.null)),
     geschaeftsartOptions: types.array(types.union(types.string, types.null)),
     aktenstandortOptions: types.array(types.union(types.string, types.null)),
     interneOptions: types.array(InterneOptions),
@@ -75,6 +76,9 @@ export default types
     const store = getParent(self, 1)
 
     return {
+      setFaelligeStatiOptions(val) {
+        self.faelligeStatiOptions = val
+      },
       sortByFields(field, direction) {
         const { reportType, initiate } = store.pages
         const sortFields = geschaefteSortByFieldsGetSortFields(
@@ -118,7 +122,7 @@ export default types
       setFilterFulltext(val) {
         self.filterFulltext = val
       },
-      filterByFulltext(value) {
+      filterByFulltext: flow(function* (value) {
         const location = store.location.toJSON()
         const activeLocation = location[0]
         const { geschaefte, setLocation } = store
@@ -128,7 +132,7 @@ export default types
         self.filterType = 'nach Volltext'
         self.filterFields = []
         self.activeId = null
-        self.fetchFilterFulltextIds(value)
+        yield self.fetchFilterFulltextIds(value)
         /**
          * if pages are active,
          * initiate with new data
@@ -143,8 +147,8 @@ export default types
             self.toggleActivatedById(geschaefteFilteredAndSorted[0].idGeschaeft)
           }
         }
-      },
-      fetchFilterFulltextIds(filter) {
+      }),
+      fetchFilterFulltextIds: flow(function* (filter) {
         // convert to lower case if possible
         let filterValue = filter.toLowerCase ? filter.toLowerCase() : filter
         if (filterValue.toString) {
@@ -154,11 +158,9 @@ export default types
         }
         let result = []
         try {
-          result = store.app.db
-            .prepare(
-              `select idGeschaeft from fts where value match '"${filterValue}"*'`,
-            )
-            .all()
+          result = yield store.app.db.select(
+            `select idGeschaeft from fts where value match '"${filterValue}"*'`,
+          )
         } catch (error) {
           store.addErrorMessage(error.message)
           self.filterFulltextIds = []
@@ -171,7 +173,7 @@ export default types
           result,
         })*/
         self.filterFulltextIds = filterFulltextIds
-      },
+      }),
       removeFilters() {
         self.GefilterteIds = _.sortBy(self.geschaefte, (g) => g.idGeschaeft)
           .reverse()
@@ -185,18 +187,22 @@ export default types
         self.activeId =
           self.activeId && self.activeId === idGeschaeft ? null : idGeschaeft
       },
-      fetchAll() {
+      fetchAll: flow(function* () {
+        console.log('store geschaefte fetchAll')
         const location = store.location.toJSON()
         const activeLocation = location[0]
         const { app, addErrorMessage, setLocation } = store
         let geschaefte = []
+        console.log('store geschaefte fetchAll, db:', app.db)
         try {
-          geschaefte = app.db
-            .prepare('SELECT * FROM geschaefte ORDER BY idGeschaeft DESC')
-            .all()
+          geschaefte = yield app.db.select(
+            'SELECT * FROM geschaefte ORDER BY idGeschaeft DESC',
+          )
         } catch (error) {
+          console.log('store geschaefte fetchAll, geschaefte error:', error)
           addErrorMessage(error.message)
         }
+        console.log('store geschaefte fetchAll, geschaefte 2:', geschaefte)
         /**
          * convert date fields
          * from YYYY-MM-DD to DD.MM.YYYY
@@ -213,32 +219,32 @@ export default types
         if (activeLocation !== 'geschaefte') {
           setLocation(['geschaefte'])
         }
-      },
-      fetchAllGeko() {
+      }),
+      fetchAllGeko: flow(function* () {
         const { app, addErrorMessage } = store
         let geko = []
         try {
-          geko = app.db
-            .prepare('SELECT * FROM geko ORDER BY idGeschaeft, gekoNr')
-            .all()
+          geko = yield app.db.select(
+            'SELECT * FROM geko ORDER BY idGeschaeft, gekoNr',
+          )
         } catch (error) {
           addErrorMessage(error.message)
         }
         self.geko = geko
-      },
-      fetchLinks() {
+      }),
+      fetchLinks: flow(function* () {
         const { app, addErrorMessage } = store
         let links = []
         try {
-          links = app.db
-            .prepare('SELECT * FROM links ORDER BY idGeschaeft, url')
-            .all()
+          links = yield app.db.select(
+            'SELECT * FROM links ORDER BY idGeschaeft, url',
+          )
         } catch (error) {
           return addErrorMessage(error.message)
         }
         self.links = links
-      },
-      geschaeftInsert() {
+      }),
+      geschaeftInsert: flow(function* () {
         const location = store.location.toJSON()
         const activeLocation = location[0]
         const { app, setLocation } = store
@@ -246,15 +252,13 @@ export default types
         const now = moment().format('YYYY-MM-DD HH:mm:ss')
         let result
         try {
-          result = app.db
-            .prepare(
-              `
+          result = yield app.db.execute(
+            `
               INSERT INTO
                 geschaefte (mutationsdatum, mutationsperson)
               VALUES
                 ('${now}', '${username}')`,
-            )
-            .run()
+          )
         } catch (error) {
           return self.addErrorMessage(error.message)
         }
@@ -263,17 +267,15 @@ export default types
         // return full dataset
         let geschaeft = {}
         try {
-          geschaeft = app.db
-            .prepare(
-              `
-        SELECT
-          *
-        FROM
-          geschaefte
-        WHERE
-          idGeschaeft = ${idGeschaeft}`,
-            )
-            .get()
+          geschaeft = yield app.db.select(
+            `
+              SELECT
+                *
+              FROM
+                geschaefte
+              WHERE
+                idGeschaeft = ${idGeschaeft}`,
+          )[0]
         } catch (error) {
           return self.addErrorMessage(error.message)
         }
@@ -287,8 +289,8 @@ export default types
         if (activeLocation !== 'geschaefte') {
           setLocation(['geschaefte'])
         }
-      },
-      geschaeftDelete(idGeschaeft) {
+      }),
+      geschaeftDelete: flow(function* (idGeschaeft) {
         const {
           app,
           geschaefteKontakteIntern,
@@ -297,15 +299,13 @@ export default types
           geschaeftKontaktInternDelete,
         } = store
         try {
-          app.db
-            .prepare(
-              `
+          yield app.db.execute(
+            `
               DELETE FROM
                 geschaefte
               WHERE
                 idGeschaeft = ${idGeschaeft}`,
-            )
-            .run()
+          )
         } catch (error) {
           console.log('geschaeftDelete error', error)
           return addErrorMessage(error.message)
@@ -315,16 +315,18 @@ export default types
           (g) => g.idGeschaeft !== idGeschaeft,
         )
         // need to delete geschaefteKontakteIntern in self
-        const geschaefteKontakteInternToDelete = geschaefteKontakteIntern.geschaefteKontakteIntern.filter(
-          (g) => g.idGeschaeft === idGeschaeft,
-        )
+        const geschaefteKontakteInternToDelete =
+          geschaefteKontakteIntern.geschaefteKontakteIntern.filter(
+            (g) => g.idGeschaeft === idGeschaeft,
+          )
         geschaefteKontakteInternToDelete.forEach((g) =>
           geschaeftKontaktInternDelete(idGeschaeft, g.idKontakt),
         )
         // need to delete geschaefteKontakteExtern in self
-        const geschaefteKontakteExternToDelete = geschaefteKontakteExtern.geschaefteKontakteExtern.filter(
-          (g) => g.idGeschaeft === idGeschaeft,
-        )
+        const geschaefteKontakteExternToDelete =
+          geschaefteKontakteExtern.geschaefteKontakteExtern.filter(
+            (g) => g.idGeschaeft === idGeschaeft,
+          )
         geschaefteKontakteExternToDelete.forEach((g) =>
           store.geschaeftKontaktExternDelete(idGeschaeft, g.idKontakt),
         )
@@ -338,7 +340,7 @@ export default types
           (l) => l.idGeschaeft === idGeschaeft,
         )
         linkselfmove.forEach((l) => store.linkDelete(idGeschaeft, l.url))
-      },
+      }),
       geschaeftSetDeleteIntended() {
         self.willDelete = true
       },

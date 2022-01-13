@@ -27,32 +27,30 @@ export default types
       setRows(table, rows) {
         self[table] = rows
       },
-      delete(table, id) {
+      async delete(table, id) {
         const { app, addErrorMessage } = store
         try {
-          app.db
-            .prepare(
-              `
+          await app.db.execute(
+            `
               DELETE FROM
                 ${table}
               WHERE
                 id = ${id}`,
-            )
-            .run()
+          )
         } catch (error) {
           return addErrorMessage(error.message)
         }
         store.table.toggleActivatedRow(id)
         self[table] = self[table].filter((g) => g.id !== id)
       },
-      insert(table) {
+      async insert(table) {
         const location = store.location.toJSON()
         const activeLocation = location[0]
         const { addErrorMessage, setLocation } = store
         const { db } = store.app
         let result
         try {
-          result = db.prepare(`INSERT INTO ${table} (id) VALUES (NULL)`).run()
+          result = await db.select(`INSERT INTO ${table} (id) VALUES (NULL)`)
         } catch (error) {
           return addErrorMessage(error.message)
         }
@@ -60,7 +58,7 @@ export default types
         // return full dataset
         let row
         try {
-          row = db.prepare(`SELECT * FROM ${table} WHERE id = ${id}`).get()
+          row = await db.select(`SELECT * FROM ${table} WHERE id = ${id}`)[0]
         } catch (error) {
           return addErrorMessage(error.message)
         }

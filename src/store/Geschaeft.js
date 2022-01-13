@@ -1,4 +1,4 @@
-import { types, getParent } from 'mobx-state-tree'
+import { types, getParent, flow } from 'mobx-state-tree'
 import moment from 'moment'
 
 import isDateField from '../src/isDateField'
@@ -123,15 +123,15 @@ export default types
     ),
   })
   .actions((self) => ({
-    fetch() {
+    fetch: flow(function* () {
       // ensure data is always fresh
       const store = getParent(self, 3)
       const { app, addErrorMessage } = store
       let geschaeft
       try {
-        geschaeft = app.db
-          .prepare(`SELECT * FROM geschaefte where idGeschaeft = ?`)
-          .get(self.idGeschaeft)
+        geschaeft = yield app.db.select(
+          `SELECT * FROM geschaefte where idGeschaeft = ${self.idGeschaeft}`,
+        )[0]
       } catch (error) {
         console.log('error:', error)
         return addErrorMessage(error.message)
@@ -144,8 +144,8 @@ export default types
           self[field] = geschaeft[field]
         }
       })
-    },
-    setValue({ field, value }) {
+    }),
+    setValue: flow(function* ({ field, value }) {
       const store = getParent(self, 3)
       const { app, addErrorMessage } = store
       const { username } = app
@@ -163,9 +163,8 @@ export default types
       }
       const now = moment().format('YYYY-MM-DD HH:mm:ss')
       try {
-        app.db
-          .prepare(
-            `
+        yield app.db.execute(
+          `
               UPDATE
                 geschaefte
               SET
@@ -174,10 +173,9 @@ export default types
                 mutationsperson = '${username}'
               WHERE
                 idGeschaeft = ${self.idGeschaeft}`,
-          )
-          .run()
+        )
       } catch (error) {
         addErrorMessage(error.message)
       }
-    },
+    }),
   }))

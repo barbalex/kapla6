@@ -94,8 +94,8 @@ const GeschaefteKontakteInternItems = ({ refresh }) => {
             <Fv>{verantwortlichData(gkI, interneOptions)}</Fv>
             <RemoveIconContainer>
               <RemoveIcon
-                onClick={() => {
-                  geschaeftKontaktInternRemove(activeId, gkI.idKontakt)
+                onClick={async () => {
+                  await geschaeftKontaktInternRemove(activeId, gkI.idKontakt)
                   setTimeout(() => refresh())
                 }}
                 title={titleText(gkI.idKontakt, interneOptions)}

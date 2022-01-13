@@ -39,9 +39,8 @@ const GeschaefteKontakteExtern = ({ tabIndex }) => {
     const kontakteInternOfActiveGeschaeft = geschaefteKontakteExtern.filter(
       (g) => g.idGeschaeft === activeId,
     )
-    const idKontakteOfGkiOfActiveGeschaeft = kontakteInternOfActiveGeschaeft.map(
-      (kI) => kI.idKontakt,
-    )
+    const idKontakteOfGkiOfActiveGeschaeft =
+      kontakteInternOfActiveGeschaeft.map((kI) => kI.idKontakt)
     const externeOptionsFiltered = externeOptionsPassed.filter(
       (o) => !idKontakteOfGkiOfActiveGeschaeft.includes(o.id),
     )
@@ -58,8 +57,8 @@ const GeschaefteKontakteExtern = ({ tabIndex }) => {
     <ErrorBoundary>
       <Container>
         <KontakteExternItems
-          refresh={() => {
-            setValue(null)
+          refresh={async () => {
+            await setValue(null)
             setValue('')
           }}
         />
@@ -70,9 +69,9 @@ const GeschaefteKontakteExtern = ({ tabIndex }) => {
               field="not-relevant"
               placeholder="Externen Kontakt hinzufügen"
               options={externeOptions}
-              saveToDb={({ value, field }) => {
-                setValue(value)
-                geschaeftKontaktExternNewCreate(activeId, value)
+              saveToDb={async ({ value, field }) => {
+                await setValue(value)
+                await geschaeftKontaktExternNewCreate(activeId, value)
                 // empty dropdown
                 setTimeout(() => setValue(''), 1000)
               }}

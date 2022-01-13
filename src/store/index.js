@@ -1,4 +1,4 @@
-import { types } from 'mobx-state-tree'
+import { types, flow } from 'mobx-state-tree'
 import uniq from 'lodash/uniq'
 
 import App from './App'
@@ -39,108 +39,110 @@ const store = () =>
       /*
        * GESCHAEFT
        */
-      rechtsmittelErledigungOptionsGet() {
+      rechtsmittelErledigungOptionsGet: flow(function* () {
         let rechtsmittelErledigungOptions = []
         try {
-          rechtsmittelErledigungOptions = getDropdownOptions(
+          rechtsmittelErledigungOptions = yield getDropdownOptions(
             self,
             'rechtsmittelErledigung',
           )
         } catch (error) {
           return
         }
-        self.geschaefte.rechtsmittelErledigungOptions = rechtsmittelErledigungOptions
-      },
-      parlVorstossTypOptionsGet() {
+        self.geschaefte.rechtsmittelErledigungOptions =
+          rechtsmittelErledigungOptions
+      }),
+      parlVorstossTypOptionsGet: flow(function* () {
         let parlVorstossTypOptions = []
         try {
-          parlVorstossTypOptions = getDropdownOptions(self, 'parlVorstossTyp')
+          parlVorstossTypOptions = yield getDropdownOptions(
+            self,
+            'parlVorstossTyp',
+          )
         } catch (error) {
           return
         }
         self.geschaefte.parlVorstossTypOptions = parlVorstossTypOptions
-      },
-      statusOptionsGet() {
+      }),
+      statusOptionsGet: flow(function* () {
         let statusOptions = []
         try {
-          statusOptions = getDropdownOptions(self, 'status')
+          statusOptions = yield getDropdownOptions(self, 'status')
         } catch (error) {
           return
         }
         self.geschaefte.statusOptions = statusOptions
-      },
-      faelligeStatiOptionsGet() {
+      }),
+      faelligeStatiOptionsGet: flow(function* () {
         let options = []
         try {
-          options = self.app.db
-            .prepare(
-              `
-          SELECT
-            status
-          FROM
-            status
-          WHERE
-            geschaeftKannFaelligSein = 1`,
-            )
-            .all()
+          options = yield self.app.db.select(
+            `
+            SELECT
+              status
+            FROM
+              status
+            WHERE
+              geschaeftKannFaelligSein = 1`,
+          )
         } catch (error) {
           return self.addErrorMessage(error.message)
         }
-        self.geschaefte.faelligeStatiOptions = options.map((res) => res.status)
-      },
-      geschaeftsartOptionsGet() {
+        self.geschaefte.setFaelligeStatiOptions(
+          options.map((res) => res.status),
+        )
+      }),
+      geschaeftsartOptionsGet: flow(function* () {
         let geschaeftsartOptions = []
         try {
-          geschaeftsartOptions = getDropdownOptions(self, 'geschaeftsart')
+          geschaeftsartOptions = yield getDropdownOptions(self, 'geschaeftsart')
         } catch (error) {
           return
         }
         self.geschaefte.geschaeftsartOptions = geschaeftsartOptions
-      },
-      aktenstandortOptionsGet() {
+      }),
+      aktenstandortOptionsGet: flow(function* () {
         let aktenstandortOptions = []
         try {
-          aktenstandortOptions = getDropdownOptions(self, 'aktenstandort')
+          aktenstandortOptions = yield getDropdownOptions(self, 'aktenstandort')
         } catch (error) {
           return
         }
         self.geschaefte.aktenstandortOptions = aktenstandortOptions
-      },
-      interneOptionsGet() {
+      }),
+      interneOptionsGet: flow(function* () {
         let interneOptions = []
         try {
-          interneOptions = self.app.db
-            .prepare('SELECT * FROM interne ORDER BY kurzzeichen')
-            .all()
+          interneOptions = yield self.app.db.select(
+            'SELECT * FROM interne ORDER BY kurzzeichen',
+          )
         } catch (error) {
           return self.addErrorMessage(error.message)
         }
         self.geschaefte.interneOptions = interneOptions
-      },
-      externeOptionsGet() {
+      }),
+      externeOptionsGet: flow(function* () {
         let externeOptions = []
         try {
-          externeOptions = self.app.db
-            .prepare(
-              `
-          SELECT
-            *
-          FROM
-            externe
-          ORDER BY
-            name,
-            vorname`,
-            )
-            .all()
+          externeOptions = yield self.app.db.select(
+            `
+            SELECT
+              *
+            FROM
+              externe
+            ORDER BY
+              name,
+              vorname`,
+          )
         } catch (error) {
           return self.addErrorMessage(error.message)
         }
         self.geschaefte.externeOptions = externeOptions
-      },
-      rechtsmittelInstanzOptionsGet() {
+      }),
+      rechtsmittelInstanzOptionsGet: flow(function* () {
         let rechtsmittelInstanzOptions = []
         try {
-          rechtsmittelInstanzOptions = getDropdownOptions(
+          rechtsmittelInstanzOptions = yield getDropdownOptions(
             self,
             'rechtsmittelInstanz',
           )
@@ -148,156 +150,142 @@ const store = () =>
           return
         }
         self.geschaefte.rechtsmittelInstanzOptions = rechtsmittelInstanzOptions
-      },
-      abteilungOptionsGet() {
+      }),
+      abteilungOptionsGet: flow(function* () {
         let abteilungOptions = []
         try {
-          abteilungOptions = getDropdownOptions(self, 'abteilung')
+          abteilungOptions = yield getDropdownOptions(self, 'abteilung')
         } catch (error) {
           return
         }
         self.geschaefte.abteilungOptions = abteilungOptions
-      },
-      gekoNewCreate(idGeschaeft, gekoNr) {
+      }),
+      gekoNewCreate: flow(function* (idGeschaeft, gekoNr) {
         let geko
         try {
-          self.app.db
-            .prepare(
-              `INSERT INTO geko (idGeschaeft, gekoNr) VALUES (${idGeschaeft}, '${gekoNr}')`,
-            )
-            .run()
+          yield self.app.db.execute(
+            `INSERT INTO geko (idGeschaeft, gekoNr) VALUES (${idGeschaeft}, '${gekoNr}')`,
+          )
         } catch (error) {
           return self.addErrorMessage(error.message)
         }
         // return full dataset
         try {
-          geko = self.app.db
-            .prepare(
-              `
-          SELECT
-            *
-          FROM
-            geko
-          WHERE
-            idGeschaeft = ${idGeschaeft} AND
-            gekoNr = '${gekoNr}'`,
-            )
-            .get()
+          geko = yield self.app.db.select(
+            `
+              SELECT
+                *
+              FROM
+                geko
+              WHERE
+                idGeschaeft = ${idGeschaeft} AND
+                gekoNr = '${gekoNr}'`,
+          )[0]
         } catch (error) {
           return self.addErrorMessage(error.message)
         }
-        self.geschaefte.geko.unshift(geko)
-      },
-      gekoRemove(idGeschaeft, gekoNr) {
+        self.geschaefte.geko.unshift(geko[0])
+      }),
+      gekoRemove: flow(function* (idGeschaeft, gekoNr) {
         try {
-          self.app.db
-            .prepare(
-              `
-          DELETE FROM
-            geko
-          WHERE
-            idGeschaeft = ${idGeschaeft} AND
-            gekoNr = '${gekoNr}'`,
-            )
-            .run()
+          yield self.app.db.execute(
+            `
+              DELETE FROM
+                geko
+              WHERE
+                idGeschaeft = ${idGeschaeft} AND
+                gekoNr = '${gekoNr}'`,
+          )
         } catch (error) {
           return self.addErrorMessage(error.message)
         }
         self.geschaefte.geko = self.geschaefte.geko.filter(
           (g) => g.idGeschaeft !== idGeschaeft || g.gekoNr !== gekoNr,
         )
-      },
+      }),
       changeGekoInDb(idGeschaeft, gekoNr, field, value) {
         // no need to do something on then
         // ui was updated on GEKO_CHANGE_STATE
         try {
-          self.app.db
-            .prepare(
-              `
-          UPDATE
-            geko
-          SET
-            ${field} = ${value === null ? null : `'${value}'`},
-          WHERE
-            idGeschaeft = ${idGeschaeft} AND
-            gekoNr = '${gekoNr}'`,
-            )
-            .run()
+          self.app.db.execute(
+            `
+            UPDATE
+              geko
+            SET
+              ${field} = ${value === null ? null : `'${value}'`},
+            WHERE
+              idGeschaeft = ${idGeschaeft} AND
+              gekoNr = '${gekoNr}'`,
+          )
         } catch (error) {
           self.addErrorMessage(error.message)
         }
       },
-      linkNewCreate(idGeschaeft, url) {
+      linkNewCreate: flow(function* (idGeschaeft, url) {
         try {
-          self.app.db
-            .prepare(
-              `
-          INSERT INTO
-            links (idGeschaeft, url)
-          VALUES
-            (${idGeschaeft}, '${url}')`,
-            )
-            .run()
+          yield self.app.db.execute(
+            `
+              INSERT INTO
+                links (idGeschaeft, url)
+              VALUES
+                (${idGeschaeft}, '${url}')`,
+          )
         } catch (error) {
           return self.addErrorMessage(error.message)
         }
         self.geschaefte.links.unshift({ idGeschaeft, url })
-      },
-      linkRemove(idGeschaeft, url) {
+      }),
+      linkRemove: flow(function* (idGeschaeft, url) {
         try {
-          self.app.db
-            .prepare(
-              `
-        DELETE FROM
-          links
-        WHERE
-          idGeschaeft = ${idGeschaeft} AND
-          url = '${url}'`,
-            )
-            .run()
+          yield self.app.db.execute(
+            `
+              DELETE FROM
+                links
+              WHERE
+                idGeschaeft = ${idGeschaeft} AND
+                url = '${url}'`,
+          )
         } catch (error) {
           return self.addErrorMessage(error.message)
         }
         self.linkDelete(idGeschaeft, url)
-      },
+      }),
       linkDelete(idGeschaeft, url) {
         self.geschaefte.links = self.geschaefte.links.filter(
           (l) => l.idGeschaeft !== idGeschaeft || l.url !== url,
         )
       },
-      getGeschaefteKontakteExtern() {
+      getGeschaefteKontakteExtern: flow(function* () {
         const { app } = self
         let geschaefteKontakteExtern
         try {
-          geschaefteKontakteExtern = app.db
-            .prepare('SELECT * FROM geschaefteKontakteExtern')
-            .all()
+          geschaefteKontakteExtern = yield app.db.select(
+            'SELECT * FROM geschaefteKontakteExtern',
+          )
         } catch (error) {
           self.addErrorMessage(error.message)
         }
-        self.geschaefteKontakteExtern.geschaefteKontakteExtern = geschaefteKontakteExtern
-      },
-      geschaeftKontaktExternNewCreate(idGeschaeft, idKontakt) {
+        self.geschaefteKontakteExtern.geschaefteKontakteExtern =
+          geschaefteKontakteExtern
+      }),
+      geschaeftKontaktExternNewCreate: flow(function* (idGeschaeft, idKontakt) {
         const { app } = self
         let geschaeftKontaktExtern
         try {
-          app.db
-            .prepare(
-              `
+          yield app.db.execute(
+            `
               INSERT INTO
                 geschaefteKontakteExtern (idGeschaeft, idKontakt)
               VALUES
                 (${idGeschaeft}, ${idKontakt})`,
-            )
-            .run()
+          )
         } catch (error) {
           return self.addErrorMessage(error.message)
         }
         // return full object
         try {
-          geschaeftKontaktExtern = app.db
-            .prepare(
-              `
+          geschaeftKontaktExtern = yield app.db.select(
+            `
               SELECT
                 *
               FROM
@@ -305,64 +293,61 @@ const store = () =>
               WHERE
                 idGeschaeft = ${idGeschaeft}
                 AND idKontakt = ${idKontakt}`,
-            )
-            .get()
+          )[0]
         } catch (error) {
           return self.addErrorMessage(error.message)
         }
         self.geschaefteKontakteExtern.geschaefteKontakteExtern.push(
           geschaeftKontaktExtern,
         )
-      },
+      }),
       geschaeftKontaktExternDelete(idGeschaeft, idKontakt) {
-        self.geschaefteKontakteExtern.geschaefteKontakteExtern = self.geschaefteKontakteExtern.geschaefteKontakteExtern.filter(
-          (g) => g.idGeschaeft !== idGeschaeft || g.idKontakt !== idKontakt,
-        )
+        self.geschaefteKontakteExtern.geschaefteKontakteExtern =
+          self.geschaefteKontakteExtern.geschaefteKontakteExtern.filter(
+            (g) => g.idGeschaeft !== idGeschaeft || g.idKontakt !== idKontakt,
+          )
         self.geschaefteKontakteExtern.activeIdGeschaeft = null
         self.geschaefteKontakteExtern.activeIdKontakt = null
       },
-      geschaeftKontaktExternRemove(idGeschaeft, idKontakt) {
+      geschaeftKontaktExternRemove: flow(function* (idGeschaeft, idKontakt) {
         try {
-          self.app.db
-            .prepare(
-              `
+          yield self.app.db.execute(
+            `
               DELETE FROM
                 geschaefteKontakteExtern
               WHERE
                 idGeschaeft = ${idGeschaeft}
                 AND idKontakt = ${idKontakt}`,
-            )
-            .run()
+          )
         } catch (error) {
           return self.addErrorMessage(error.message)
         }
         self.geschaefteKontakteExtern.willDelete = false
         self.geschaeftKontaktExternDelete(idGeschaeft, idKontakt)
-      },
-      getGeschaefteKontakteIntern() {
+      }),
+      getGeschaefteKontakteIntern: flow(function* () {
         const { app } = self
         let geschaefteKontakteIntern = []
         try {
-          geschaefteKontakteIntern = app.db
-            .prepare('SELECT * FROM geschaefteKontakteIntern')
-            .all()
+          geschaefteKontakteIntern = yield app.db.select(
+            'SELECT * FROM geschaefteKontakteIntern',
+          )
         } catch (error) {
           return self.addErrorMessage(error.message)
         }
-        self.geschaefteKontakteIntern.geschaefteKontakteIntern = geschaefteKontakteIntern
-      },
-      geschaeftKontaktInternNewCreate(idGeschaeft, idKontakt) {
+        self.geschaefteKontakteIntern.geschaefteKontakteIntern =
+          geschaefteKontakteIntern
+      }),
+      geschaeftKontaktInternNewCreate: flow(function* (idGeschaeft, idKontakt) {
         const { app } = self
         try {
-          app.db
-            .prepare(
-              `
+          yield app.db.execute(
+            `
               INSERT INTO
                 geschaefteKontakteIntern (idGeschaeft, idKontakt)
               VALUES
                 (${idGeschaeft}, ${idKontakt})`,
-            )
-            .run()
+          )
         } catch (error) {
           console.log({ error, idGeschaeft, idKontakt })
           return self.addErrorMessage(error.message)
@@ -370,9 +355,8 @@ const store = () =>
         // return full object
         let geschaeftKontaktIntern
         try {
-          geschaeftKontaktIntern = app.db
-            .prepare(
-              `
+          geschaeftKontaktIntern = yield app.db.select(
+            `
               SELECT
                 *
               FROM
@@ -380,8 +364,7 @@ const store = () =>
               WHERE
                 idGeschaeft = ${idGeschaeft}
                 AND idKontakt = ${idKontakt}`,
-            )
-            .get()
+          )[0]
         } catch (error) {
           console.log({ error, idGeschaeft, idKontakt })
           return self.addErrorMessage(error.message)
@@ -389,32 +372,31 @@ const store = () =>
         self.geschaefteKontakteIntern.geschaefteKontakteIntern.push(
           geschaeftKontaktIntern,
         )
-      },
+      }),
       geschaeftKontaktInternDelete(idGeschaeft, idKontakt) {
-        self.geschaefteKontakteIntern.geschaefteKontakteIntern = self.geschaefteKontakteIntern.geschaefteKontakteIntern.filter(
-          (g) => g.idGeschaeft !== idGeschaeft || g.idKontakt !== idKontakt,
-        )
+        self.geschaefteKontakteIntern.geschaefteKontakteIntern =
+          self.geschaefteKontakteIntern.geschaefteKontakteIntern.filter(
+            (g) => g.idGeschaeft !== idGeschaeft || g.idKontakt !== idKontakt,
+          )
         self.geschaefteKontakteIntern.activeIdGeschaeft = null
         self.geschaefteKontakteIntern.activeIdKontakt = null
       },
-      geschaeftKontaktInternRemove(idGeschaeft, idKontakt) {
+      geschaeftKontaktInternRemove: flow(function* (idGeschaeft, idKontakt) {
         try {
-          self.app.db
-            .prepare(
-              `
+          yield self.app.db.execute(
+            `
               DELETE FROM
                 geschaefteKontakteIntern
               WHERE
                 idGeschaeft = ${idGeschaeft}
                 AND idKontakt = ${idKontakt}`,
-            )
-            .run()
+          )
         } catch (error) {
           return self.addErrorMessage(error.message)
         }
         self.geschaefteKontakteIntern.willDelete = false
         self.geschaeftKontaktInternDelete(idGeschaeft, idKontakt)
-      },
+      }),
       messageShow(showMessageModal, messageTextLine1, messageTextLine2) {
         self.app.showMessageModal = showMessageModal
         self.app.messageTextLine1 = messageTextLine1

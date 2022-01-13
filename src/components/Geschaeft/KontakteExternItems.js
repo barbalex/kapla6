@@ -103,8 +103,8 @@ const GeschaefteKontakteExtern = ({ refresh }) => {
             <Field>{verantwortlichData(gKE, externeOptions)}</Field>
             <RemoveIconContainer>
               <RemoveIcon
-                onClick={() => {
-                  geschaeftKontaktExternRemove(activeId, gKE.idKontakt)
+                onClick={async () => {
+                  await geschaeftKontaktExternRemove(activeId, gKE.idKontakt)
                   setTimeout(() => refresh())
                 }}
                 title={titleText(gKE.idKontakt, externeOptions)}

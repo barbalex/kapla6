@@ -1,10 +1,9 @@
-const getDropdownOptions = (store, name) => {
+const getDropdownOptions = async (store, name) => {
   let result = []
   try {
-    result = store.app.db
+    result = await store.app.db
       // TODO: update when removing historisch field
-      .prepare(`SELECT ${name} FROM ${name} WHERE historisch = 0 ORDER BY sort`)
-      .all()
+      .select(`SELECT ${name} FROM ${name} WHERE historisch = 0 ORDER BY sort`)
   } catch (error) {
     store.addErrorMessage(error.message)
   }

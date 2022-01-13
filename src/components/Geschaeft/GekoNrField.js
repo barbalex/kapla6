@@ -20,11 +20,11 @@ const GekoNrField = ({ idGeschaeft, gekoNr: gekoNrPassed, tabsToAdd }) => {
     setOldGekoNr(gekoNrPassed)
   }, [gekoNrPassed, idGeschaeft])
 
-  const onChange = useCallback(e => setGekoNr(e.target.value), [])
-  const onBlur = useCallback(() => {
+  const onChange = useCallback((e) => setGekoNr(e.target.value), [])
+  const onBlur = useCallback(async () => {
     // need old value
     if (gekoNr && oldGekoNr && gekoNr !== oldGekoNr) {
-      gekoRemove(idGeschaeft, oldGekoNr)
+      await gekoRemove(idGeschaeft, oldGekoNr)
       gekoNewCreate(idGeschaeft, gekoNr)
     } else if (gekoNr && !oldGekoNr) {
       gekoNewCreate(idGeschaeft, gekoNr)

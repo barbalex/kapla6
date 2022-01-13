@@ -40,9 +40,8 @@ const GeschaefteKontakteIntern = ({ tabIndex }) => {
     const kontakteInternOfActiveGeschaeft = geschaefteKontakteIntern.filter(
       (g) => g.idGeschaeft === activeId,
     )
-    const idKontakteOfGkiOfActiveGeschaeft = kontakteInternOfActiveGeschaeft.map(
-      (kI) => kI.idKontakt,
-    )
+    const idKontakteOfGkiOfActiveGeschaeft =
+      kontakteInternOfActiveGeschaeft.map((kI) => kI.idKontakt)
     const interneOptionsFiltered = interneOptionsPassed.filter(
       (o) => !idKontakteOfGkiOfActiveGeschaeft.includes(o.id),
     )
@@ -66,8 +65,8 @@ const GeschaefteKontakteIntern = ({ tabIndex }) => {
     <ErrorBoundary>
       <Container>
         <KontakteInternItems
-          refresh={() => {
-            setValue(null)
+          refresh={async () => {
+            await setValue(null)
             setValue('')
           }}
         />
@@ -78,9 +77,9 @@ const GeschaefteKontakteIntern = ({ tabIndex }) => {
               field="not-relevant"
               placeholder="Internen Kontakt hinzufügen"
               options={interneOptions}
-              saveToDb={({ value, field }) => {
-                setValue(value)
-                geschaeftKontaktInternNewCreate(activeId, value)
+              saveToDb={async ({ value, field }) => {
+                await setValue(value)
+                await geschaeftKontaktInternNewCreate(activeId, value)
                 // empty dropdown
                 setTimeout(() => setValue(''), 1000)
               }}
