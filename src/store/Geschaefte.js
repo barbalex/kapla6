@@ -195,8 +195,50 @@ export default types
         let geschaefte = []
         console.log('store geschaefte fetchAll, db:', app.db)
         try {
+          // TODO: querying all fields stopps execution with error:
+          // thread 'tokio-runtime-worker' panicked at 'called `Result::unwrap()` on an `Err` value: ColumnDecode { index: "20", source: "mismatched types; Rust type `i64` (as SQL type `INTEGER`) is not compatible with SQL type `TEXT`" }', C:\Users\alexa\.cargo\registry\src\github.com-1ecc6299db9ec823\sqlx-core-0.5.10\src\row.rs:73:37
+          // geschaefte = yield app.db.select(
+          //   'SELECT * FROM geschaefte ORDER BY idGeschaeft DESC',
+          // )
           geschaefte = yield app.db.select(
-            'SELECT * FROM geschaefte ORDER BY idGeschaeft DESC',
+            `SELECT
+              abteilung
+              ,aktennummer
+              ,aktenstandort
+              ,ausloeser
+              ,datumAusgangAwel
+              ,datumEingangAwel
+              ,details
+              ,entscheidAwel
+              ,entscheidBdv
+              ,entscheidKr
+              ,entscheidRrb
+              ,fristAbteilung
+              ,fristAmtschef
+              ,fristAwel
+              ,fristDirektion
+              ,fristMitarbeiter
+              ,gegenstand
+              ,geschaeftsart
+              ,idGeschaeft
+              --,idVorgeschaeft   <-- ERROR!
+              ,mutationsdatum
+              ,mutationsperson
+              ,naechsterSchritt
+              ,ort
+              ,parlVorstossStufe
+              ,parlVorstossZustaendigkeitAwel
+              ,rechtsmittelInstanz
+              ,rechtsmittelErledigung
+              ,rechtsmittelEntscheidNr
+              ,rechtsmittelEntscheidDatum
+              ,rechtsmittelTxt
+              ,status
+              ,verantwortlich
+              ,vermerk
+              ,vermerkIntern
+              ,zustaendigeDirektion
+              FROM geschaefte ORDER BY idGeschaeft DESC`,
           )
         } catch (error) {
           console.log('store geschaefte fetchAll, geschaefte error:', error)

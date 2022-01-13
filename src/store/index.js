@@ -88,9 +88,11 @@ const store = () =>
         } catch (error) {
           return self.addErrorMessage(error.message)
         }
-        self.geschaefte.setFaelligeStatiOptions(
-          options.map((res) => res.status),
-        )
+        self.geschaefte.faelligeStatiOptions = options.map((res) => res.status)
+
+        // self.geschaefte.setFaelligeStatiOptions(
+        //   options.map((res) => res.status),
+        // )
       }),
       geschaeftsartOptionsGet: flow(function* () {
         let geschaeftsartOptions = []

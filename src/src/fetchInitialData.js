@@ -5,9 +5,7 @@ const fetchInitialData = async (store) => {
   console.log('will fetch initial data')
   const { fetching, setFetching } = store
   !fetching && setFetching(true)
-  console.log('set fetching true')
   await fetchUsername(store)
-  console.log('fetched username')
   await store.faelligeStatiOptionsGet()
   await store.geschaefte?.fetchAllGeko()
   await store.geschaefte?.fetchLinks()
