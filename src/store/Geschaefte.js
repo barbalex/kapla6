@@ -202,6 +202,7 @@ export default types
           console.log('store geschaefte fetchAll, geschaefte error:', error)
           addErrorMessage(error.message)
         }
+        // TODO: above execution stopps
         console.log('store geschaefte fetchAll, geschaefte 2:', geschaefte)
         /**
          * convert date fields
