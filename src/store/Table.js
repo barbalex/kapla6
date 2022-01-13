@@ -24,7 +24,7 @@ export default types
         self.table = table
         let rows
         try {
-          rows = app.db.prepare(`SELECT * FROM ${table}`).all()
+          rows = app.db.select(`SELECT * FROM ${table}`)
         } catch (error) {
           return addErrorMessage(error.message)
         }
