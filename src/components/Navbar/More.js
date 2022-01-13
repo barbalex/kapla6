@@ -6,8 +6,8 @@ import {
   DropdownItem,
 } from 'reactstrap'
 import styled from 'styled-components'
-//import { ipcRenderer } from 'electron'
 import { observer } from 'mobx-react-lite'
+import { shell } from '@tauri-apps/api'
 
 import storeContext from '../../storeContext'
 import chooseDbConnection from '../../src/chooseDbConnection'
@@ -39,15 +39,12 @@ const StyledDropdownItem = styled(DropdownItem)`
 `
 
 const onGetProjektbeschreibung = () => {
-  // TODO: implement with tauri
-  // ipcRenderer.invoke(
-  //   'open-url',
-  //   'https://github.com/barbalex/kapla3/raw/master/app/etc/Projektbeschreibung.pdf',
-  // )
+  shell.open(
+    'https://github.com/barbalex/kapla3/raw/master/app/etc/Projektbeschreibung.pdf',
+  )
 }
 const onClickIssues = () => {
-  // TODO: implement with tauri
-  // ipcRenderer.invoke('open-url', 'https://github.com/barbalex/kapla3/issues')
+  shell.open('https://github.com/barbalex/kapla3/issues')
 }
 
 const OptionsNav = () => {

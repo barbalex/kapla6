@@ -4,6 +4,7 @@
 
 //import { ipcRenderer } from 'electron'
 import writeExport from './writeExport'
+import { shell } from '@tauri-apps/api'
 
 function getDataArrayFromExportObjects(exportObjects) {
   const dataArray = []
@@ -48,7 +49,7 @@ const exportGeschaefte = async (geschaefte, messageShow) => {
   //     const dataArray = getDataArrayFromExportObjects(geschaefte)
   //     const callback = () => {
   //       messageShow(false, '', '')
-  //       ipcRenderer.invoke('open-url', path)
+  //       shell.open(path)
   //     }
   //     try {
   //       await writeExport(path, dataArray, callback)

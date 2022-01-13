@@ -1,9 +1,9 @@
 import React, { useContext, useCallback } from 'react'
 import Dropzone from 'react-dropzone'
 import { FaRegTimesCircle } from 'react-icons/fa'
-//import { ipcRenderer } from 'electron'
 import { observer } from 'mobx-react-lite'
 import styled from 'styled-components'
+import { shell } from '@tauri-apps/api'
 
 import ErrorBoundary from '../shared/ErrorBoundary'
 import storeContext from '../../storeContext'
@@ -102,8 +102,7 @@ const AreaLinks = () => {
                   href={link.url}
                   onClick={(event) => {
                     event.preventDefault()
-                    // TODO: implement with tauri
-                    // ipcRenderer.invoke('open-url', link.url)
+                    shell.open(link.url)
                   }}
                 >
                   {link.url}
