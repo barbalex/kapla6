@@ -28,7 +28,9 @@ const getDb = async (store) => {
   try {
     db = await Database.load(`sqlite:${config.dbPath}`)
   } catch (error) {
+    console.log('error opening db:', error)
     if (
+      // TODO: test if this works with tauri
       (error.code && error.code === 'SQLITE_CANTOPEN') ||
       error.message.includes('directory does not exist')
     ) {
