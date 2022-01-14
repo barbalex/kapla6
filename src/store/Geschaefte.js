@@ -198,9 +198,6 @@ export default types
           // TODO: querying all fields stopps execution with error:
           // thread 'tokio-runtime-worker' panicked at 'called `Result::unwrap()` on an `Err` value: ColumnDecode { index: "20", source: "mismatched types; Rust type `i64` (as SQL type `INTEGER`) is not compatible with SQL type `TEXT`" }', C:\Users\alexa\.cargo\registry\src\github.com-1ecc6299db9ec823\sqlx-core-0.5.10\src\row.rs:73:37
           // https://github.com/launchbadge/sqlx/issues/1629
-          // geschaefte = yield app.db.select(
-          //   'SELECT * FROM geschaefte ORDER BY idGeschaeft DESC',
-          // )
           geschaefte = yield app.db.select(
             `SELECT * FROM geschaefte ORDER BY idGeschaeft DESC`,
           )
