@@ -197,55 +197,19 @@ export default types
         try {
           // TODO: querying all fields stopps execution with error:
           // thread 'tokio-runtime-worker' panicked at 'called `Result::unwrap()` on an `Err` value: ColumnDecode { index: "20", source: "mismatched types; Rust type `i64` (as SQL type `INTEGER`) is not compatible with SQL type `TEXT`" }', C:\Users\alexa\.cargo\registry\src\github.com-1ecc6299db9ec823\sqlx-core-0.5.10\src\row.rs:73:37
+          // https://github.com/launchbadge/sqlx/issues/1629
           // geschaefte = yield app.db.select(
           //   'SELECT * FROM geschaefte ORDER BY idGeschaeft DESC',
           // )
           geschaefte = yield app.db.select(
-            `SELECT
-              abteilung
-              ,aktennummer
-              ,aktenstandort
-              ,ausloeser
-              ,datumAusgangAwel
-              ,datumEingangAwel
-              ,details
-              ,entscheidAwel
-              ,entscheidBdv
-              ,entscheidKr
-              ,entscheidRrb
-              ,fristAbteilung
-              ,fristAmtschef
-              ,fristAwel
-              ,fristDirektion
-              ,fristMitarbeiter
-              ,gegenstand
-              ,geschaeftsart
-              ,idGeschaeft
-              --,idVorgeschaeft   <-- ERROR!
-              ,mutationsdatum
-              ,mutationsperson
-              ,naechsterSchritt
-              ,ort
-              ,parlVorstossStufe
-              ,parlVorstossZustaendigkeitAwel
-              ,rechtsmittelInstanz
-              ,rechtsmittelErledigung
-              ,rechtsmittelEntscheidNr
-              ,rechtsmittelEntscheidDatum
-              ,rechtsmittelTxt
-              ,status
-              ,verantwortlich
-              ,vermerk
-              ,vermerkIntern
-              ,zustaendigeDirektion
-              FROM geschaefte ORDER BY idGeschaeft DESC`,
+            `SELECT * FROM geschaefte ORDER BY idGeschaeft DESC`,
           )
         } catch (error) {
           console.log('store geschaefte fetchAll, geschaefte error:', error)
           addErrorMessage(error.message)
         }
         // TODO: above execution stopps
-        console.log('store geschaefte fetchAll, geschaefte 2:', geschaefte)
+        //console.log('store geschaefte fetchAll, geschaefte 2:', geschaefte)
         /**
          * convert date fields
          * from YYYY-MM-DD to DD.MM.YYYY
@@ -258,6 +222,7 @@ export default types
             }
           })
         })
+        console.log('store geschaefte fetchAll, geschaefte 3:', geschaefte)
         self.geschaefte = geschaefte
         if (activeLocation !== 'geschaefte') {
           setLocation(['geschaefte'])
