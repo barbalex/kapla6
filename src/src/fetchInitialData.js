@@ -1,3 +1,4 @@
+import { window, app } from '@tauri-apps/api'
 import fetchUsername from './fetchUsername'
 
 const fetchInitialData = async (store) => {
@@ -23,6 +24,8 @@ const fetchInitialData = async (store) => {
     await store.geschaefte?.fetchAll(),
   ])
   setFetching(false)
+  const appVersion = await app.getVersion()
+  window.appWindow.setTitle(`Kapla v${appVersion}`)
   console.log('fetched initial data')
 }
 

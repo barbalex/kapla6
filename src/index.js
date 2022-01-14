@@ -27,9 +27,6 @@ const run = async () => {
   registerLocale('de', de)
   setDefaultLocale('de')
 
-  // make store accessible in dev
-  window.store = store
-
   render(
     <StoreProvider value={store}>
       <App />
