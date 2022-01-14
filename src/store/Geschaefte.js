@@ -188,12 +188,10 @@ export default types
           self.activeId && self.activeId === idGeschaeft ? null : idGeschaeft
       },
       fetchAll: flow(function* () {
-        console.log('store geschaefte fetchAll')
         const location = store.location.toJSON()
         const activeLocation = location[0]
         const { app, addErrorMessage, setLocation } = store
         let geschaefte = []
-        console.log('store geschaefte fetchAll, db:', app.db)
         try {
           // TODO: querying all fields stopps execution with error:
           // thread 'tokio-runtime-worker' panicked at 'called `Result::unwrap()` on an `Err` value: ColumnDecode { index: "20", source: "mismatched types; Rust type `i64` (as SQL type `INTEGER`) is not compatible with SQL type `TEXT`" }', C:\Users\alexa\.cargo\registry\src\github.com-1ecc6299db9ec823\sqlx-core-0.5.10\src\row.rs:73:37
@@ -206,7 +204,6 @@ export default types
           addErrorMessage(error.message)
         }
         // TODO: above execution stopps
-        //console.log('store geschaefte fetchAll, geschaefte 2:', geschaefte)
         /**
          * convert date fields
          * from YYYY-MM-DD to DD.MM.YYYY
@@ -219,7 +216,6 @@ export default types
             }
           })
         })
-        console.log('store geschaefte fetchAll, geschaefte 3:', geschaefte)
         self.geschaefte = geschaefte
         if (activeLocation !== 'geschaefte') {
           setLocation(['geschaefte'])
