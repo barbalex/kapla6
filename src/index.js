@@ -8,7 +8,7 @@ import { Provider as StoreProvider } from './storeContext'
 import createStore from './store'
 import './styles.css'
 import getDb from './src/getDb'
-import fetchInitialData from './src/fetchInitialData'
+import initiate from './src/initiate'
 import setInitialFilters from './src/setInitialFilters'
 
 const run = async () => {
@@ -21,7 +21,7 @@ const run = async () => {
     store.addErrorMessage(error.message)
   }
   store.app.setDb(db)
-  fetchInitialData(store)
+  initiate(store)
   setInitialFilters(store)
 
   registerLocale('de', de)

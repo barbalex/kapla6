@@ -15,7 +15,7 @@ import Export from './Export'
 import Filter from './Filter'
 import More from './More'
 import storeContext from '../../storeContext'
-import fetchInitialData from '../../src/fetchInitialData'
+import initiate from '../../src/initiate'
 
 const Container = styled.div`
   font-size: 1.4em;
@@ -64,7 +64,7 @@ const NavbarComponent = () => {
     setFetching(true)
     // in case user edited before clicking to reload
     // wait to save
-    setTimeout(() => fetchInitialData(store), 100)
+    setTimeout(() => initiate(store), 100)
   }, [setFetching, store])
 
   const { dirty } = store

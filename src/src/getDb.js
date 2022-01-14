@@ -3,6 +3,7 @@ import Database from 'tauri-plugin-sql-api'
 
 import chooseDb from './chooseDb'
 import standardDbPath from './standardDbPath'
+import getConfig from './getConfig'
 
 const getDb = async (store) => {
   const { addErrorMessage } = store
@@ -13,10 +14,9 @@ const getDb = async (store) => {
     setLastWindowState,
     saveConfig,
   } = store.app
-  const userPath = await path.appDir() // C:\Users\alexa\AppData\Roaming\Kapla\
-  const dataFilePath = `${userPath}kaplaConfig.json`
-  const configFile = await fs.readTextFile(dataFilePath)
-  const config = configFile ? JSON.parse(configFile) : {}
+
+  const config = await getConfig()
+
   if (config.dbPath) setDbPath(config.dbPath)
   if (config.tableColumnWidth) setTableColumnWidth(config.tableColumnWidth)
   if (config.geschaefteColumnWidth)
