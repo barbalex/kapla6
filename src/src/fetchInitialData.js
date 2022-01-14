@@ -4,7 +4,7 @@ const fetchInitialData = async (store) => {
   const { fetching, setFetching } = store
   !fetching && setFetching(true)
   await fetchUsername(store)
-  // TODO: run DELETE FROM geschaefte WHERE cast(cast(idVorgeschaeft AS integer) AS text) != idVorgeschaeft;?
+  // TODO: run UPDATE geschaefte SET idVorgeschaeft = NULL WHERE cast(cast(idVorgeschaeft AS integer) AS text) != idVorgeschaeft;?
   await Promise.all([
     store.faelligeStatiOptionsGet(),
     store.geschaefte?.fetchAllGeko(),
