@@ -37,7 +37,9 @@ const fetchInitialData = async (store) => {
   const { lastWindowState } = await getConfig()
   if (lastWindowState) {
     if (lastWindowState.x !== undefined && lastWindowState.y !== undefined) {
-      window.appWindow.setPosition(new window.LogicalPosition(x, y))
+      window.appWindow.setPosition(
+        new window.LogicalPosition(lastWindowState.x, lastWindowState.y),
+      )
     }
     if (
       lastWindowState.width !== undefined &&

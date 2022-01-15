@@ -8,8 +8,9 @@ import {
 } from 'reactstrap'
 import { observer } from 'mobx-react-lite'
 import styled from 'styled-components'
-import { FaPrint, FaRegFilePdf } from 'react-icons/fa'
+import { FaPrint } from 'react-icons/fa'
 //import { ipcRenderer } from 'electron'
+//import { window } from '@tauri-apps/api'
 
 import storeContext from '../../storeContext'
 import filterForFaelligeGeschaefte from '../../src/filterForFaelligeGeschaefte'
@@ -98,68 +99,7 @@ const Berichte = () => {
     setTimeout(() => navigateToGeschaeftPdf())
   }, [navigateToGeschaeftPdf])
 
-  const onClickPrint = useCallback(() => {
-    //console.log('hi from onClickPrint')
-    // https://github.com/electron/electron/blob/master/docs/api/web-contents.md#contentsprintoptions
-    /**
-     * PROBLEM
-     * printBackground and landscape seem to be ignored
-     */
-    const options = {
-      margins: {
-        marginType: 'none',
-      },
-      //printBackground: true,
-      fitToPageEnabled: !(activeLocation === 'pages'),
-      landscape: activeLocation === 'pages',
-      pageSize: 'A4',
-      //header: 'header test', // has no influence
-      //footer: 'footer test', // has no influence
-    }
-    /*options.pageRanges = {
-      from: 0,
-      to:
-        activeLocation === 'pages' ? (pages.length ? pages.length - 1 : 0) : 0,
-    }*/
-    //console.log('Berichte, options:', options)
-    // TODO: implement with tauri
-    //ipcRenderer.invoke('print', options)
-  }, [activeLocation])
-
-  const onClickCreatePdf = useCallback(
-    async (e) => {
-      e.preventDefault()
-      const printToPDFOptions = {
-        marginsType: 0, // default
-        fitToPageEnabled: !(activeLocation === 'pages'),
-        pageSize: 'A4',
-        landscape: activeLocation === 'pages',
-        printBackground: true,
-        /*headerFooter: {
-          title: 'title test', // has no influence - standard titles are shown
-          url: ' ', // replaces url, page-numbers are shown
-        },*/
-      }
-      /*printToPDFOptions.pageRanges = {
-        from: 0,
-        to:
-          activeLocation === 'pages'
-            ? pages.length
-              ? pages.length - 1
-              : 0
-            : 0,
-      }*/
-      //console.log('Berichte, printToPDFOptions:', printToPDFOptions)
-
-      // https://github.com/electron/electron/blob/master/docs/api/web-contents.md#contentsprinttopdfoptions-callback
-      // TODO: implement with tauri
-      // await ipcRenderer.invoke('print-to-pdf', printToPDFOptions, dialogOptions)
-      // ipcRenderer.once('ERROR', (error) => {
-      //   throw new Error(error)
-      // })
-    },
-    [activeLocation],
-  )
+  const onClickPrint = useCallback(() => window.print(), [])
 
   return (
     <StyledUncontrolledDropdown nav inNavbar active={isActive}>
@@ -189,14 +129,9 @@ const Berichte = () => {
         )}
       </DropdownMenu>
       {isActive && (
-        <>
-          <StyledButton title="drucken" onClick={onClickPrint}>
-            <FaPrint />
-          </StyledButton>
-          <StyledButton title="PDF erzeugen" onClick={onClickCreatePdf}>
-            <FaRegFilePdf />
-          </StyledButton>
-        </>
+        <StyledButton title="drucken" onClick={onClickPrint}>
+          <FaPrint />
+        </StyledButton>
       )}
     </StyledUncontrolledDropdown>
   )

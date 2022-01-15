@@ -62,32 +62,3 @@ ipcMain.handle('save-dialog-get-path', async (event, dialogOptions) => {
   const { filePath } = await dialog.showSaveDialog(dialogOptions)
   return filePath
 })
-ipcMain.handle('open-url', (event, url) => {
-  // tauri: https://tauri.studio/en/docs/api/js/modules/shell#open
-  return shell.openPath(url)
-})
-
-
-ipcMain.handle('print', async (event, options) => {
-  // tauri: https://tauri.studio/en/docs/api/js/modules/window then use window.print?
-  await mainWindow.webContents.print(options)
-  return null
-})
-
-ipcMain.handle(
-  'print-to-pdf',
-  async (event, printToPDFOptions, dialogOptions) => {
-    // tauri: https://tauri.studio/en/docs/api/js/modules/window then use window.printToPDF?
-    const data = await mainWindow.webContents.printToPDF(printToPDFOptions)
-    // tauri: https://tauri.studio/en/docs/api/js/modules/dialog#save
-    const { filePath } = await dialog.showSaveDialog(dialogOptions)
-    fs.outputFile(filePath, data)
-      // tauri: https://tauri.studio/en/docs/api/js/modules/shell#open
-      .then(() => shell.openPath(filePath))
-      .catch((error) => event.sender.send('ERROR', error.message))
-    return data
-  },
-)
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and import them here.
