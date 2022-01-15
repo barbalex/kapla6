@@ -56,9 +56,3 @@ ipcMain.handle('open-dialog-get-path', async (event, dialogOptions) => {
   const { filePath } = await dialog.showOpenDialog(dialogOptions)
   return filePath
 })
-
-ipcMain.handle('save-dialog-get-path', async (event, dialogOptions) => {
-  // tauri: https://tauri.studio/en/docs/api/js/modules/dialog#save
-  const { filePath } = await dialog.showSaveDialog(dialogOptions)
-  return filePath
-})

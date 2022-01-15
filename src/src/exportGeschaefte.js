@@ -3,8 +3,8 @@
  */
 
 //import { ipcRenderer } from 'electron'
+import { dialog, shell } from '@tauri-apps/api'
 import writeExport from './writeExport'
-import { shell } from '@tauri-apps/api'
 
 function getDataArrayFromExportObjects(exportObjects) {
   const dataArray = []
@@ -29,7 +29,7 @@ function getDataArrayFromExportObjects(exportObjects) {
 }
 
 const dialogOptions = {
-  title: 'exportierte Geschäfte speichern',
+  //title: 'exportierte Geschäfte speichern',
   filters: [
     {
       name: 'Excel-Datei',
@@ -41,25 +41,28 @@ const dialogOptions = {
 const exportGeschaefte = async (geschaefte, messageShow) => {
   // TODO: implement with tauri
   // const path = await ipcRenderer.invoke('save-dialog-get-path', dialogOptions)
-  // if (path) {
-  //   messageShow(true, 'Der Export wird aufgebaut...', '')
-  //   // set timeout so message appears before exceljs starts working
-  //   // and possibly blocks execution of message
-  //   setTimeout(async () => {
-  //     const dataArray = getDataArrayFromExportObjects(geschaefte)
-  //     const callback = () => {
-  //       messageShow(false, '', '')
-  //       shell.open(path)
-  //     }
-  //     try {
-  //       await writeExport(path, dataArray, callback)
-  //     } catch (error) {
-  //       messageShow(true, 'Fehler:', error.message)
-  //       setTimeout(() => messageShow(false, '', ''), 8000)
-  //       return
-  //     }
-  //   })
-  // }
+  const path = await dialog.save(dialogOptions)
+  console.log('path:', path)
+  if (path) {
+    messageShow(true, 'Der Export wird aufgebaut...', '')
+    // set timeout so message appears before exceljs starts working
+    // and possibly blocks execution of message
+    setTimeout(async () => {
+      const dataArray = getDataArrayFromExportObjects(geschaefte)
+      const callback = () => {
+        messageShow(false, '', '')
+        shell.open(path)
+      }
+      try {
+        await writeExport(path, dataArray, callback)
+      } catch (error) {
+        messageShow(true, 'Fehler:', error.message)
+        setTimeout(() => messageShow(false, '', ''), 8000)
+        return
+      }
+      messageShow(false, '', '')
+    })
+  }
 }
 
 export default exportGeschaefte

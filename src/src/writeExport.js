@@ -3,6 +3,7 @@
  */
 
 //import { ipcRenderer } from 'electron'
+import { fs } from '@tauri-apps/api'
 import Excel from 'exceljs'
 
 const writeExport = async (path, dataArray, callback) => {
@@ -49,14 +50,7 @@ const writeExport = async (path, dataArray, callback) => {
   // exceljs workbook.xlsx.writeFile does not work
   // so export in main thread
   const buffer = await workbook.xlsx.writeBuffer()
-  // TODO: implement with tauri
-  // ipcRenderer.send('SAVE_FILE', path, buffer)
-  // ipcRenderer.once('SAVED_FILE', () => {
-  //   if (callback) return callback()
-  // })
-  // ipcRenderer.once('ERROR', (message) => {
-  //   throw new Error({ message })
-  // })
+  await fs.writeBinaryFile({ contents: buffer, path })
   return
 }
 
