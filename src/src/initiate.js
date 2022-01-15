@@ -34,6 +34,7 @@ const fetchInitialData = async (store) => {
 
   // get last window state
   // and set it again
+  // TODO: test if this works with tauri
   const { lastWindowState } = await getConfig()
   if (lastWindowState) {
     if (lastWindowState.x !== undefined && lastWindowState.y !== undefined) {
