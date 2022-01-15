@@ -24,14 +24,6 @@ const getConfig = () => {
   return JSON.parse(configFile)
 }
 
-const saveConfig = (data) => {
-  const userPath = app.getPath('userData')
-  const dataFilePath = path.join(userPath, 'kaplaConfig.json')
-  // tauri: https://tauri.studio/en/docs/api/js/modules/fs#writefile
-  fs.writeFileSync(dataFilePath, JSON.stringify(data, null, 2))
-  return null
-}
-
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   // eslint-disable-line global-require
@@ -85,28 +77,6 @@ const createWindow = () => {
     mainWindow.webContents.openDevTools()
   }
 
-  // save window state on close
-  mainWindow.on('close', (e) => {
-    e.preventDefault()
-
-    const bounds = mainWindow.getBounds()
-    const config = getConfig()
-    config.lastWindowState = {
-      x: bounds.x,
-      y: bounds.y,
-      width: bounds.width,
-      height: bounds.height,
-      maximized: mainWindow.isMaximized(),
-    }
-    saveConfig(config)
-
-    // in case user has changed data inside an input and not blured yet,
-    // force bluring so data is saved
-    mainWindow.webContents.executeJavaScript('document.activeElement.blur()')
-    setTimeout(() => mainWindow.destroy(), 500)
-  })
-}
-
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
@@ -137,10 +107,6 @@ ipcMain.on('SAVE_FILE', (event, path, data) => {
     .then(() => event.sender.send('SAVED_FILE'))
     .catch((error) => event.sender.send('ERROR', error.message))
 })
-
-ipcMain.handle('get-config', () => getConfig())
-
-ipcMain.handle('save-config', (event, data) => saveConfig(data))
 
 ipcMain.handle('open-dialog-get-path', async (event, dialogOptions) => {
   // tauri: https://tauri.studio/en/docs/api/js/modules/dialog#open

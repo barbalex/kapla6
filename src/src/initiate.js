@@ -1,5 +1,7 @@
 import { window, app, event } from '@tauri-apps/api'
+
 import fetchUsername from './fetchUsername'
+import saveConfig from './saveConfig'
 
 const fetchInitialData = async (store) => {
   const { fetching, setFetching } = store

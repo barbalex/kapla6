@@ -2,6 +2,7 @@ import { types } from 'mobx-state-tree'
 //import { ipcRenderer } from 'electron'
 
 import standardConfig from '../src/standardConfig'
+import saveConfigModule from '../src/saveConfig'
 
 export default types
   .model('App', {
@@ -34,14 +35,13 @@ export default types
       self.username = username
     },
     saveConfig(val = {}) {
-      // TODO: implement with tauri
-      // ipcRenderer.invoke('save-config', {
-      //   dbPath: self.dbPath,
-      //   tableColumnWidth: self.tableColumnWidth,
-      //   geschaefteColumnWidth: self.geschaefteColumnWidth,
-      //   lastWindowState: self.lastWindowState,
-      //   ...val,
-      // })
+      saveConfigModule({
+        dbPath: self.dbPath,
+        tableColumnWidth: self.tableColumnWidth,
+        geschaefteColumnWidth: self.geschaefteColumnWidth,
+        lastWindowState: self.lastWindowState,
+        ...val,
+      })
     },
     setDbPath(val) {
       self.dbPath = val
