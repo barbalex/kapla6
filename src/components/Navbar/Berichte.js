@@ -9,8 +9,6 @@ import {
 import { observer } from 'mobx-react-lite'
 import styled from 'styled-components'
 import { FaPrint } from 'react-icons/fa'
-//import { ipcRenderer } from 'electron'
-//import { window } from '@tauri-apps/api'
 
 import storeContext from '../../storeContext'
 import filterForFaelligeGeschaefte from '../../src/filterForFaelligeGeschaefte'

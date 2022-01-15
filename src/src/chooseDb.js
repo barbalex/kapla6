@@ -1,15 +1,15 @@
-//import { ipcRenderer } from 'electron'
+import { dialog } from '@tauri-apps/api'
 
 const options = {
-  title: 'Datenbank für Kapla wählen',
-  properties: ['openFile'],
+  //title: 'Datenbank für Kapla wählen',
   filters: [{ name: 'sqlite-Datenbanken', extensions: ['db'] }],
+  multiple: false,
+  directory: false,
 }
 
 const chooseDb = async () => {
-  // TODO: implement with tauri
-  // const path = await ipcRenderer.invoke('open-dialog-get-path', options)
-  // return path.filePaths[0]
+  const path = await dialog.open(options)
+  return path
 }
 
 export default chooseDb

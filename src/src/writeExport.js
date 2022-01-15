@@ -1,12 +1,10 @@
 /**
  * writes a dataArray to an Excel workbook
  */
-
-//import { ipcRenderer } from 'electron'
 import { fs } from '@tauri-apps/api'
 import Excel from 'exceljs'
 
-const writeExport = async (path, dataArray, callback) => {
+const writeExport = async (path, dataArray) => {
   const workbook = new Excel.Workbook()
   const numberOfColumns =
     dataArray && dataArray[0] && dataArray[0].length ? dataArray[0].length : 0

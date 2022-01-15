@@ -1,4 +1,3 @@
-//import { ipcRenderer } from 'electron'
 import { process } from '@tauri-apps/api'
 
 import chooseDb from './chooseDb'

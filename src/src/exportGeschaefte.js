@@ -42,25 +42,21 @@ const exportGeschaefte = async (geschaefte, messageShow) => {
   // TODO: implement with tauri
   // const path = await ipcRenderer.invoke('save-dialog-get-path', dialogOptions)
   const path = await dialog.save(dialogOptions)
-  console.log('path:', path)
   if (path) {
     messageShow(true, 'Der Export wird aufgebaut...', '')
     // set timeout so message appears before exceljs starts working
     // and possibly blocks execution of message
     setTimeout(async () => {
       const dataArray = getDataArrayFromExportObjects(geschaefte)
-      const callback = () => {
-        messageShow(false, '', '')
-        shell.open(path)
-      }
       try {
-        await writeExport(path, dataArray, callback)
+        await writeExport(path, dataArray)
       } catch (error) {
         messageShow(true, 'Fehler:', error.message)
         setTimeout(() => messageShow(false, '', ''), 8000)
         return
       }
       messageShow(false, '', '')
+      shell.open(path)
     })
   }
 }
