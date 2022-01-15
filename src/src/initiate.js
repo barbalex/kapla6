@@ -1,7 +1,8 @@
-import { window, app, event } from '@tauri-apps/api'
+import { app, event, window } from '@tauri-apps/api'
 
 import fetchUsername from './fetchUsername'
 import saveConfig from './saveConfig'
+import getConfig from './getConfig'
 
 const fetchInitialData = async (store) => {
   const { fetching, setFetching } = store
@@ -30,6 +31,26 @@ const fetchInitialData = async (store) => {
 
   const appVersion = await app.getVersion()
   window.appWindow.setTitle(`Kapla v${appVersion}`)
+
+  // get last window state
+  // and set it again
+  const { lastWindowState } = await getConfig()
+  if (lastWindowState) {
+    if (lastWindowState.x !== undefined && lastWindowState.y !== undefined) {
+      window.appWindow.setPosition(new window.LogicalPosition(x, y))
+    }
+    if (
+      lastWindowState.width !== undefined &&
+      lastWindowState.height !== undefined
+    ) {
+      window.appWindow.setSize(
+        new window.LogicalSize(lastWindowState.width, lastWindowState.height),
+      )
+    }
+    if (lastWindowState.maximized) {
+      window.appWindow.maximize()
+    }
+  }
 
   // wait vor next version after tauri v1.0.0-beta.8
   // https://github.com/tauri-apps/tauri/issues/2996

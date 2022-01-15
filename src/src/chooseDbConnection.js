@@ -1,4 +1,5 @@
 //import { ipcRenderer } from 'electron'
+import { process } from '@tauri-apps/api'
 
 import chooseDb from './chooseDb'
 
@@ -12,10 +13,10 @@ const chooseDbConnection = async (store) => {
     return console.log('Error after choosing db:', chooseError)
   }
   setDbPath(dbPath)
-  setTimeout(() => {
-    saveConfig({ dbPath })
-    // TODO: implement with tauri
-    // setTimeout(() => ipcRenderer.invoke('reload-main-window'))
+  setTimeout(async () => {
+    await saveConfig({ dbPath })
+    // TODO: test implementation with tauri
+    process.relaunch()
   })
 }
 

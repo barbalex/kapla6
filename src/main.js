@@ -1,17 +1,6 @@
-// needed to prevent error, see: https://stackoverflow.com/a/49253810/712005
-require('@babel/polyfill')
 const { app, BrowserWindow, ipcMain, Menu, dialog, shell } = require('electron')
 const fs = require('fs-extra')
 const path = require('path')
-
-const isSingleInstance = app.requestSingleInstanceLock()
-
-if (!isSingleInstance) {
-  app.quit()
-  process.exit(0)
-}
-
-app.disableHardwareAcceleration()
 
 const getConfig = () => {
   // tauri: https://tauri.studio/en/docs/api/js/modules/path#datadir
@@ -49,55 +38,9 @@ const browserWindowOptions = {
   },
 }
 
-// get last window state
-// and set it again
-const { lastWindowState } = getConfig()
-if (lastWindowState) {
-  if (lastWindowState.width) browserWindowOptions.width = lastWindowState.width
-  if (lastWindowState.height) {
-    browserWindowOptions.height = lastWindowState.height
-  }
-  if (lastWindowState.x) browserWindowOptions.x = lastWindowState.x
-  if (lastWindowState.y) browserWindowOptions.y = lastWindowState.y
-}
-
 const createWindow = () => {
   // Create the browser window.
   mainWindow = new BrowserWindow(browserWindowOptions)
-  if (lastWindowState && lastWindowState.maximized) {
-    mainWindow.maximize()
-  }
-  Menu.setApplicationMenu(null)
-  // and load the index.html of the app.
-  mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)
-  mainWindow.show()
-
-  // Open the DevTools
-  if (!app.isPackaged) {
-    mainWindow.webContents.openDevTools()
-  }
-
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
-
-// Quit when all windows are closed.
-app.on('window-all-closed', () => {
-  // On OS X it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
-})
-
-app.on('activate', () => {
-  // On OS X it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  if (mainWindow === null) {
-    createWindow()
-  }
-})
 
 // exceljs workbook.xlsx.writeFile does not work
 // so export in main thread
@@ -124,10 +67,6 @@ ipcMain.handle('open-url', (event, url) => {
   return shell.openPath(url)
 })
 
-ipcMain.handle('reload-main-window', () => {
-  // tauri: https://tauri.studio/en/docs/api/js/modules/process#relaunch
-  mainWindow.reload()
-})
 
 ipcMain.handle('print', async (event, options) => {
   // tauri: https://tauri.studio/en/docs/api/js/modules/window then use window.print?
