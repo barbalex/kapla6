@@ -17,16 +17,6 @@ import filterForFaelligeGeschaefte from '../../src/filterForFaelligeGeschaefte'
 import filterForVernehmlAngek from '../../src/filterForVernehmlAngek'
 import filterForVernehmlLaeuft from '../../src/filterForVernehmlLaeuft'
 
-const dialogOptions = {
-  title: 'pdf speichern',
-  filters: [
-    {
-      name: 'pdf',
-      extensions: ['pdf'],
-    },
-  ],
-}
-
 const StyledUncontrolledDropdown = styled(UncontrolledDropdown)`
   display: flex;
   border: ${(props) =>
