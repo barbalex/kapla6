@@ -1,6 +1,10 @@
 const getAllData = async (store) => {
-  const { fetching, setFetching } = store
+  const { setFetching } = store
   setFetching(true)
+  // load geschaefte first
+  // hope that ui shows more quicker
+  await store.geschaefte?.fetchAll()
+  setFetching(false)
   await Promise.all([
     store.faelligeStatiOptionsGet(),
     store.geschaefte?.fetchAllGeko(),
@@ -16,10 +20,8 @@ const getAllData = async (store) => {
     store.aktenstandortOptionsGet(),
     store.rechtsmittelInstanzOptionsGet(),
     store.abteilungOptionsGet(),
-    store.geschaefte?.fetchAll(),
   ])
   console.log('fetched initial data')
-  setFetching(false)
   return
 }
 
