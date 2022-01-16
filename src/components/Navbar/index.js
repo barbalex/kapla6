@@ -15,7 +15,6 @@ import Export from './Export'
 import Filter from './Filter'
 import More from './More'
 import storeContext from '../../storeContext'
-import initiate from '../../src/initiate'
 import getAllData from '../../src/getAllData'
 
 const Container = styled.div`
