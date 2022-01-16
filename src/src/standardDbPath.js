@@ -1,1 +1,3 @@
-export default 'U:\\Kapla\\kapla.db'
+const standardDbPath = 'U:\\Kapla\\kapla.db'
+
+export default standardDbPath

@@ -5,7 +5,7 @@ import isDateField from './isDateField'
 import getItKontoForVerantwortlich from './getItKontoForVerantwortlich'
 import ifIsNumericAsNumber from './ifIsNumericAsNumber'
 
-export default store => {
+const filterGeschaefteByFilterFields = (store) => {
   const {
     filterFields: filterFieldsPassed,
     geschaefte,
@@ -16,9 +16,9 @@ export default store => {
   // some filterFields may only have a comparator >
   // reduce to filterFields with values
   const filterFields = filterFieldsPassed.filter(
-    ff => ff.value || ff.value === 0,
+    (ff) => ff.value || ff.value === 0,
   )
-  return geschaefte.filter(geschaeft => {
+  return geschaefte.filter((geschaeft) => {
     // if all conditions are met, include the geschaeft
     let satisfiesFilter = true
     filterFields.forEach((filterField, index) => {
@@ -38,20 +38,20 @@ export default store => {
       }
       if (filterField.field === 'gekoNr') {
         geschaeftValue = geko
-          .filter(gko => gko.idGeschaeft === geschaeft.idGeschaeft)
-          .map(g => g.gekoNr)
+          .filter((gko) => gko.idGeschaeft === geschaeft.idGeschaeft)
+          .map((g) => g.gekoNr)
           .join(', ')
       }
       if (filterField.field === 'kontaktInternVornameName') {
         geschaeftValue = store.geschaefteKontakteIntern.geschaefteKontakteIntern
-          .filter(k => k.idGeschaeft === geschaeft.idGeschaeft)
-          .map(g => `${g.vorname} ${g.name}`)
+          .filter((k) => k.idGeschaeft === geschaeft.idGeschaeft)
+          .map((g) => `${g.vorname} ${g.name}`)
           .join(', ')
       }
       if (filterField.field === 'kontaktExternNameVorname') {
         geschaeftValue = store.geschaefteKontakteExtern.geschaefteKontakteExtern
-          .filter(k => k.idGeschaeft === geschaeft.idGeschaeft)
-          .map(g => `${g.name} ${g.vorname}`)
+          .filter((k) => k.idGeschaeft === geschaeft.idGeschaeft)
+          .map((g) => `${g.name} ${g.vorname}`)
           .join(', ')
       }
       const existsGeschaeftValue = geschaeftValue || geschaeftValue === 0
@@ -113,3 +113,5 @@ export default store => {
     return satisfiesFilter
   })
 }
+
+export default filterGeschaefteByFilterFields

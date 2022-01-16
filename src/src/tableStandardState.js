@@ -1,4 +1,4 @@
-export default {
+const tableStandardState = {
   table: null,
   rows: {
     interne: [],
@@ -15,3 +15,5 @@ export default {
   willDelete: false,
   error: [],
 }
+
+export default tableStandardState

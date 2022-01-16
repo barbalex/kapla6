@@ -1,6 +1,6 @@
 import moment from 'moment'
 
-export default [
+const filterForFaelligeGeschaefte = [
   {
     field: 'fristMitarbeiter',
     value: moment().format('YYYY-MM-DD'),
@@ -12,3 +12,5 @@ export default [
     comparator: '===',
   },
 ]
+
+export default filterForFaelligeGeschaefte

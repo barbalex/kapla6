@@ -1,6 +1,6 @@
 import validateDate from './validateDate'
 
-export default date => {
+const getDateValidationStateDate = (date) => {
   switch (validateDate(date)) {
     case true:
       return null
@@ -10,3 +10,5 @@ export default date => {
       return null
   }
 }
+
+export default getDateValidationStateDate

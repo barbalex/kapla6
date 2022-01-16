@@ -1,4 +1,3 @@
-import { fs, path } from '@tauri-apps/api'
 import Database from 'tauri-plugin-sql-api'
 
 import chooseDb from './chooseDb'

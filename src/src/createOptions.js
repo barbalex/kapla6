@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default values => {
+const createOptions = (values) => {
   if (!values) return []
   const options = values.map((val, index) => (
     <option key={index + 1} value={val}>
@@ -10,3 +10,5 @@ export default values => {
   options.unshift(<option key={0} value="" />)
   return options
 }
+
+export default createOptions

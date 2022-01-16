@@ -1,6 +1,8 @@
 import moment from 'moment'
 
-export default date => {
+const validateDate = (date) => {
   if (!date) return true
   return moment(date, 'DD.MM.YYYY').isValid()
 }
+
+export default validateDate

@@ -1,4 +1,4 @@
-export default {
+const geschaefteKontakteExternStandardState = {
   error: [],
   geschaefteKontakteExtern: [],
   // state for active geschaeftKontaktExtern:
@@ -6,3 +6,5 @@ export default {
   activeIdKontakt: null,
   willDelete: false,
 }
+
+export default geschaefteKontakteExternStandardState

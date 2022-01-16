@@ -1,6 +1,6 @@
 {
   "name": "kapla",
-  "version": "0.1.0",
+  "version": "3.alpha.1",
   "private": true,
   "dependencies": {
     "@babel/core": "7.16.7",
@@ -42,6 +42,12 @@
     "use-debounce": "7.0.1",
     "use-detect-print": "0.0.2",
     "web-vitals": "2.1.0"
+  },
+  "resolutions": {
+    "mini-css-extract-plugin": "2.4.5"
+  },
+  "dependencies-comments": {
+    "mini-css-extract-plugin": "2.4.5: do not upgrade to 2.5.0. Needed because of https://github.com/facebook/create-react-app/issues/11930"
   },
   "scripts": {
     "start": "react-scripts start",

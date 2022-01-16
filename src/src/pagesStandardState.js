@@ -1,6 +1,6 @@
 import pageStandardState from './pageStandardState'
 
-export default {
+const pagesStandardState = {
   pages: [{ ...pageStandardState }],
   activePageIndex: 0,
   remainingGeschaefte: [],
@@ -9,3 +9,5 @@ export default {
   queryTitle: true,
   reportType: 'fristen',
 }
+
+export default pagesStandardState

@@ -1,4 +1,4 @@
-export default [
+const filterForVernehmlLaeuft = [
   {
     field: 'geschaeftsart',
     value: 'Vernehmlassung',
@@ -10,3 +10,5 @@ export default [
     comparator: '=',
   },
 ]
+
+export default filterForVernehmlLaeuft
