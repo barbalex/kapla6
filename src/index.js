@@ -12,12 +12,13 @@ import initiate from './src/initiate'
 import setInitialFilters from './src/setInitialFilters'
 
 const run = async () => {
-  const store = createStore().create()
+  const store = await createStore().create()
 
   let db
   try {
     db = await getDb(store)
   } catch (error) {
+    console.log('error getting db:', error)
     store.addErrorMessage(error.message)
   }
   store.app.setDb(db)

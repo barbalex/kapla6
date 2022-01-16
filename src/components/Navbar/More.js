@@ -10,7 +10,7 @@ import { observer } from 'mobx-react-lite'
 import { shell } from '@tauri-apps/api'
 
 import storeContext from '../../storeContext'
-import chooseDbConnection from '../../src/chooseDbConnection'
+import changeDbConnection from '../../src/changeDbConnection'
 
 const DbPath = styled.span`
   color: #adadad;
@@ -57,7 +57,7 @@ const OptionsNav = () => {
         &#8942;
       </StyledDropdownToggle>
       <DropdownMenu right>
-        <DropdownItem onClick={() => chooseDbConnection(store)}>
+        <DropdownItem onClick={() => changeDbConnection(store)}>
           Datenbank wählen
           <br />
           {dbPath && <DbPath>{`Aktuell: ${dbPath}`}</DbPath>}

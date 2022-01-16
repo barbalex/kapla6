@@ -200,8 +200,7 @@ export default types
             `SELECT * FROM geschaefte ORDER BY idGeschaeft DESC`,
           )
         } catch (error) {
-          console.log('store geschaefte fetchAll, geschaefte error:', error)
-          addErrorMessage(error.message)
+          addErrorMessage(error)
         }
         // TODO: above execution stopps
         /**

@@ -13,11 +13,9 @@ const fetchInitialData = async (store) => {
   if (lastWindowState) {
     const { x, y, width, height, maximized } = lastWindowState
     if (x !== undefined && y !== undefined) {
-      console.log('setting window position to:', { x, y })
       window.appWindow.setPosition(new window.LogicalPosition(x, y))
     }
     if (width !== undefined && height !== undefined) {
-      console.log('setting window size to:', { width, height })
       window.appWindow.setSize(new window.LogicalSize(width, height))
     }
     if (maximized) {
