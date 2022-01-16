@@ -163,7 +163,6 @@ const store = () =>
         self.geschaefte.abteilungOptions = abteilungOptions
       }),
       gekoNewCreate: flow(function* (idGeschaeft, gekoNr) {
-        let geko
         try {
           yield self.app.db.execute(
             `INSERT INTO geko (idGeschaeft, gekoNr) VALUES (${idGeschaeft}, '${gekoNr}')`,
@@ -172,8 +171,9 @@ const store = () =>
           return self.addErrorMessage(error.message)
         }
         // return full dataset
+        let gekos
         try {
-          geko = yield self.app.db.select(
+          gekos = yield self.app.db.select(
             `
               SELECT
                 *
@@ -182,11 +182,11 @@ const store = () =>
               WHERE
                 idGeschaeft = ${idGeschaeft} AND
                 gekoNr = '${gekoNr}'`,
-          )[0]
+          )
         } catch (error) {
           return self.addErrorMessage(error.message)
         }
-        self.geschaefte.geko.unshift(geko[0])
+        self.geschaefte.geko.unshift(gekos[0])
       }),
       gekoRemove: flow(function* (idGeschaeft, gekoNr) {
         try {
@@ -272,7 +272,6 @@ const store = () =>
       }),
       geschaeftKontaktExternNewCreate: flow(function* (idGeschaeft, idKontakt) {
         const { app } = self
-        let geschaeftKontaktExtern
         try {
           yield app.db.execute(
             `
@@ -285,8 +284,9 @@ const store = () =>
           return self.addErrorMessage(error.message)
         }
         // return full object
+        let geschaefteKontakteExtern
         try {
-          geschaeftKontaktExtern = yield app.db.select(
+          geschaefteKontakteExtern = yield app.db.select(
             `
               SELECT
                 *
@@ -295,10 +295,11 @@ const store = () =>
               WHERE
                 idGeschaeft = ${idGeschaeft}
                 AND idKontakt = ${idKontakt}`,
-          )[0]
+          )
         } catch (error) {
           return self.addErrorMessage(error.message)
         }
+        const geschaeftKontaktExtern = geschaefteKontakteExtern?.[0]
         self.geschaefteKontakteExtern.geschaefteKontakteExtern.push(
           geschaeftKontaktExtern,
         )
@@ -355,9 +356,9 @@ const store = () =>
           return self.addErrorMessage(error.message)
         }
         // return full object
-        let geschaeftKontaktIntern
+        let geschaefteKontakteIntern
         try {
-          geschaeftKontaktIntern = yield app.db.select(
+          geschaefteKontakteIntern = yield app.db.select(
             `
               SELECT
                 *
@@ -366,14 +367,17 @@ const store = () =>
               WHERE
                 idGeschaeft = ${idGeschaeft}
                 AND idKontakt = ${idKontakt}`,
-          )[0]
+          )
         } catch (error) {
           console.log({ error, idGeschaeft, idKontakt })
           return self.addErrorMessage(error.message)
         }
-        self.geschaefteKontakteIntern.geschaefteKontakteIntern.push(
-          geschaeftKontaktIntern,
-        )
+        const geschaeftKontaktIntern = geschaefteKontakteIntern?.[0]
+        if (geschaeftKontaktIntern) {
+          self.geschaefteKontakteIntern.geschaefteKontakteIntern.push(
+            geschaeftKontaktIntern,
+          )
+        }
       }),
       geschaeftKontaktInternDelete(idGeschaeft, idKontakt) {
         self.geschaefteKontakteIntern.geschaefteKontakteIntern =

@@ -265,9 +265,9 @@ export default types
         const idGeschaeft = result.lastInsertRowid
 
         // return full dataset
-        let geschaeft = {}
+        let geschaefte
         try {
-          geschaeft = yield app.db.select(
+          geschaefte = yield app.db.select(
             `
               SELECT
                 *
@@ -275,10 +275,11 @@ export default types
                 geschaefte
               WHERE
                 idGeschaeft = ${idGeschaeft}`,
-          )[0]
+          )
         } catch (error) {
           return self.addErrorMessage(error.message)
         }
+        const geschaeft = geschaefte?.[0]
         self.geschaefte.unshift(geschaeft)
         // need to remove filters
         self.filterFields = []

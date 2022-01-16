@@ -56,12 +56,13 @@ export default types
         }
         const id = result.lastInsertRowid
         // return full dataset
-        let row
+        let rows
         try {
-          row = await db.select(`SELECT * FROM ${table} WHERE id = ${id}`)[0]
+          rows = await db.select(`SELECT * FROM ${table} WHERE id = ${id}`)
         } catch (error) {
           return addErrorMessage(error.message)
         }
+        const row = rows[0]
         self[table].unshift(row)
         store.table.toggleActivatedRow(row.id)
         if (activeLocation !== 'table') {

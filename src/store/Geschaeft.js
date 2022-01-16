@@ -127,15 +127,16 @@ export default types
       // ensure data is always fresh
       const store = getParent(self, 3)
       const { app, addErrorMessage } = store
-      let geschaeft
+      let geschaefte
       try {
-        geschaeft = yield app.db.select(
+        geschaefte = yield app.db.select(
           `SELECT * FROM geschaefte where idGeschaeft = ${self.idGeschaeft}`,
-        )[0]
+        )
       } catch (error) {
         console.log('error:', error)
         return addErrorMessage(error.message)
       }
+      const geschaeft = geschaefte[0] ?? {}
       Object.keys(geschaeft).forEach((field) => {
         if (isDateField(field)) {
           // convert date fields from YYYY-MM-DD to DD.MM.YYYY

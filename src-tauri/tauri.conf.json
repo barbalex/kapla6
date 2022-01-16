@@ -1,6 +1,6 @@
 {
   "package": {
-    "productName": "Kapla",
+    "productName": "Kapla v3",
     "version": "3.0.1"
   },
   "build": {
@@ -53,7 +53,7 @@
     },
     "windows": [
       {
-        "title": "Kapla",
+        "title": "Kapla v3",
         "width": 1200,
         "height": 800,
         "resizable": true,
