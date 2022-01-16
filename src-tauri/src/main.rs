@@ -12,12 +12,18 @@ fn get_username() -> String {
 
 #[tauri::command]
 fn exists_file(path: &str) -> bool {
-  println!("exists_file running, path: {}", path);
   let some_file = std::path::Path::new(path);
   let exists = some_file.exists();
-  println!("exists_file running, exists: {}", exists);
   return exists;
 }
+
+// #[tauri::command]
+// fn inform_choose_db() {
+//   tauri::api::dialog::message(
+//     parent_window: Option::<tauri::Wry>::None,
+//   title: "Datenbank-Datei wählen", 
+//   message: "Bitte wählen Sie im nachfolgenden Dialog die passende Datenbank-Datei");
+// }
 
 fn main() {
   tauri::Builder::default()
