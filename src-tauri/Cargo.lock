@@ -3172,7 +3172,7 @@ dependencies = [
  "tao-core-video-sys",
  "unicode-segmentation",
  "windows 0.30.0",
- "windows_macros 0.30.0",
+ "windows_macros",
  "x11-dl",
 ]
 
@@ -3202,7 +3202,7 @@ dependencies = [
 [[package]]
 name = "tauri"
 version = "1.0.0-beta.8"
-source = "git+https://github.com/tauri-apps/tauri?branch=next#9014fe88b65299a2fbd8a1c37b61242426de617f"
+source = "git+https://github.com/tauri-apps/tauri?branch=next#8376e3c035b94f920b2933d4eb8c366506b919bf"
 dependencies = [
  "attohttpc",
  "base64",
@@ -3264,7 +3264,7 @@ dependencies = [
 [[package]]
 name = "tauri-codegen"
 version = "1.0.0-beta.4"
-source = "git+https://github.com/tauri-apps/tauri?branch=next#9014fe88b65299a2fbd8a1c37b61242426de617f"
+source = "git+https://github.com/tauri-apps/tauri?branch=next#8376e3c035b94f920b2933d4eb8c366506b919bf"
 dependencies = [
  "blake3",
  "kuchiki",
@@ -3282,7 +3282,7 @@ dependencies = [
 [[package]]
 name = "tauri-macros"
 version = "1.0.0-beta.5"
-source = "git+https://github.com/tauri-apps/tauri?branch=next#9014fe88b65299a2fbd8a1c37b61242426de617f"
+source = "git+https://github.com/tauri-apps/tauri?branch=next#8376e3c035b94f920b2933d4eb8c366506b919bf"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -3307,7 +3307,7 @@ dependencies = [
 [[package]]
 name = "tauri-runtime"
 version = "0.2.1"
-source = "git+https://github.com/tauri-apps/tauri?branch=next#9014fe88b65299a2fbd8a1c37b61242426de617f"
+source = "git+https://github.com/tauri-apps/tauri?branch=next#8376e3c035b94f920b2933d4eb8c366506b919bf"
 dependencies = [
  "gtk",
  "http",
@@ -3318,14 +3318,14 @@ dependencies = [
  "tauri-utils 1.0.0-beta.3 (git+https://github.com/tauri-apps/tauri?branch=next)",
  "thiserror",
  "uuid",
- "webview2-com 0.9.0",
+ "webview2-com",
  "windows 0.30.0",
 ]
 
 [[package]]
 name = "tauri-runtime-wry"
 version = "0.2.1"
-source = "git+https://github.com/tauri-apps/tauri?branch=next#9014fe88b65299a2fbd8a1c37b61242426de617f"
+source = "git+https://github.com/tauri-apps/tauri?branch=next#8376e3c035b94f920b2933d4eb8c366506b919bf"
 dependencies = [
  "gtk",
  "ico",
@@ -3334,7 +3334,7 @@ dependencies = [
  "tauri-runtime",
  "tauri-utils 1.0.0-beta.3 (git+https://github.com/tauri-apps/tauri?branch=next)",
  "uuid",
- "webview2-com 0.10.0",
+ "webview2-com",
  "windows 0.30.0",
  "wry",
 ]
@@ -3360,7 +3360,7 @@ dependencies = [
 [[package]]
 name = "tauri-utils"
 version = "1.0.0-beta.3"
-source = "git+https://github.com/tauri-apps/tauri?branch=next#9014fe88b65299a2fbd8a1c37b61242426de617f"
+source = "git+https://github.com/tauri-apps/tauri?branch=next#8376e3c035b94f920b2933d4eb8c366506b919bf"
 dependencies = [
  "heck 0.4.0",
  "html5ever",
@@ -3842,26 +3842,14 @@ dependencies = [
 
 [[package]]
 name = "webview2-com"
-version = "0.9.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2b0f21eed16a0078ef52de94d15d6e3a22f9998cf45bdabaf9ef4a235ae235ac"
-dependencies = [
- "webview2-com-macros",
- "webview2-com-sys 0.9.0",
- "windows 0.29.0",
- "windows_macros 0.29.0",
-]
-
-[[package]]
-name = "webview2-com"
 version = "0.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "381febeeb86214fd262941a2b26322c33c38bf8b565b0ddfd4a7a8d4003053a9"
 dependencies = [
  "webview2-com-macros",
- "webview2-com-sys 0.10.0",
+ "webview2-com-sys",
  "windows 0.30.0",
- "windows_macros 0.30.0",
+ "windows_macros",
 ]
 
 [[package]]
@@ -3877,20 +3865,6 @@ dependencies = [
 
 [[package]]
 name = "webview2-com-sys"
-version = "0.9.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a56fe9356e3729233bed63e7c002c0f5064f5d2148f169ce77eec8932a98c4c0"
-dependencies = [
- "regex",
- "serde",
- "serde_json",
- "thiserror",
- "windows 0.29.0",
- "windows-bindgen 0.29.0",
-]
-
-[[package]]
-name = "webview2-com-sys"
 version = "0.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a2e3542bb16fe61e951f87c9146571344f1e773327498efa65704a4cff472662"
@@ -3900,7 +3874,7 @@ dependencies = [
  "serde_json",
  "thiserror",
  "windows 0.30.0",
- "windows-bindgen 0.30.0",
+ "windows-bindgen",
 ]
 
 [[package]]
@@ -3999,22 +3973,12 @@ dependencies = [
 
 [[package]]
 name = "windows-bindgen"
-version = "0.29.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b01138bf46333583966ea4b86fd4f61a9b524c0f5f88bc3c18768d6b66cb6c4e"
-dependencies = [
- "windows_quote 0.29.0",
- "windows_reader 0.29.0",
-]
-
-[[package]]
-name = "windows-bindgen"
 version = "0.30.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "944c545fcae9dd66488308f8b69aa3ba34f53714416ecfcdcbbfa4b6821e27c6"
 dependencies = [
- "windows_quote 0.30.0",
- "windows_reader 0.30.0",
+ "windows_quote",
+ "windows_reader",
 ]
 
 [[package]]
@@ -4031,22 +3995,12 @@ checksum = "29277a4435d642f775f63c7d1faeb927adba532886ce0287bd985bffb16b6bca"
 
 [[package]]
 name = "windows_gen"
-version = "0.29.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e59eb69ef41a029911bb604a850f70ec1f58c8587511bc10ed84a3465931df0b"
-dependencies = [
- "windows_quote 0.29.0",
- "windows_reader 0.29.0",
-]
-
-[[package]]
-name = "windows_gen"
 version = "0.30.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "30dff4d91d22520628bb94b66f2bb313cb16a09a515a32320a84a1b449bc94c0"
 dependencies = [
- "windows_quote 0.30.0",
- "windows_reader 0.30.0",
+ "windows_quote",
+ "windows_reader",
 ]
 
 [[package]]
@@ -4087,45 +4041,21 @@ checksum = "d4a09e3a0d4753b73019db171c1339cd4362c8c44baf1bcea336235e955954a6"
 
 [[package]]
 name = "windows_macros"
-version = "0.29.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6f6443f71f760ce91f4cc7fc81ee78f680dccb8ec110c52a92ec857a7def39a3"
-dependencies = [
- "syn",
- "windows_gen 0.29.0",
- "windows_quote 0.29.0",
- "windows_reader 0.29.0",
-]
-
-[[package]]
-name = "windows_macros"
 version = "0.30.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "62ae44ab917e9005fe710d99d52d227ca0164b10a09be90649142cc3fab825d3"
 dependencies = [
  "syn",
- "windows_gen 0.30.0",
- "windows_quote 0.30.0",
- "windows_reader 0.30.0",
+ "windows_gen",
+ "windows_quote",
+ "windows_reader",
 ]
-
-[[package]]
-name = "windows_quote"
-version = "0.29.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1dd83f20d7c391dc3b115a7e8a0851b71d0a9c356be2791571e858063b5f823c"
 
 [[package]]
 name = "windows_quote"
 version = "0.30.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "71f02c51a77e6248c1206aaa920802c32d50a05205e229b118d7f3afd3036667"
-
-[[package]]
-name = "windows_reader"
-version = "0.29.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d87b34c04457bad3c5436ffe1ed262c908228bb634e3bda34f4ce2c252495787"
 
 [[package]]
 name = "windows_reader"
@@ -4214,9 +4144,9 @@ dependencies = [
  "url",
  "webkit2gtk",
  "webkit2gtk-sys",
- "webview2-com 0.10.0",
+ "webview2-com",
  "windows 0.30.0",
- "windows_macros 0.30.0",
+ "windows_macros",
 ]
 
 [[package]]

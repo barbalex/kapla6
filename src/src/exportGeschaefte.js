@@ -29,7 +29,7 @@ function getDataArrayFromExportObjects(exportObjects) {
 }
 
 const dialogOptions = {
-  //title: 'exportierte Geschäfte speichern',
+  title: 'exportierte Geschäfte speichern',
   filters: [
     {
       name: 'Excel-Datei',
