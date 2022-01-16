@@ -41,7 +41,6 @@ const getDb = async (store) => {
   // if db does not exist at path, a new one is created there!
   // first query catches sql error when table does not exist
   // and makes user choose db
-  // TODO: remove the code added in geschaefte query
   try {
     db = await Database.load(`sqlite:${dbPath}`)
   } catch (error) {
