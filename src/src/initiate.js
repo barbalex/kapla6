@@ -4,22 +4,23 @@ import fetchUsername from './fetchUsername'
 import saveConfig from './saveConfig'
 import getConfig from './getConfig'
 import getAllData from './getAllData'
+import setInitialFilters from './setInitialFilters'
 
 const fetchInitialData = async (store) => {
   // get last window state
   // and set it again
-  // TODO: test if this works with tauri
   const { lastWindowState } = await getConfig()
   if (lastWindowState) {
     const { x, y, width, height, maximized } = lastWindowState
-    if (x !== undefined && y !== undefined) {
-      window.appWindow.setPosition(new window.LogicalPosition(x, y))
-    }
-    if (width !== undefined && height !== undefined) {
-      window.appWindow.setSize(new window.LogicalSize(width, height))
-    }
     if (maximized) {
       window.appWindow.maximize()
+    } else {
+      if (x !== undefined && y !== undefined) {
+        window.appWindow.setPosition(new window.LogicalPosition(x, y))
+      }
+      if (width !== undefined && height !== undefined) {
+        window.appWindow.setSize(new window.LogicalSize(width, height))
+      }
     }
   }
 
@@ -27,8 +28,8 @@ const fetchInitialData = async (store) => {
   window.appWindow.setTitle(`Kapla v${appVersion}`)
 
   await fetchUsername(store)
-  // TODO: run UPDATE geschaefte SET idVorgeschaeft = NULL WHERE cast(cast(idVorgeschaeft AS integer) AS text) != idVorgeschaeft;?
   await getAllData(store)
+  setInitialFilters(store)
 
   // wait vor next version after tauri v1.0.0-beta.8
   // https://github.com/tauri-apps/tauri/issues/2996

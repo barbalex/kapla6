@@ -187,17 +187,36 @@ export default types
         self.activeId =
           self.activeId && self.activeId === idGeschaeft ? null : idGeschaeft
       },
-      fetchAll: flow(function* () {
+      fetchFaellige: flow(function* () {
         const location = store.location.toJSON()
         const activeLocation = location[0]
         const { app, addErrorMessage, setLocation } = store
-        let geschaefte = []
         try {
-          // TODO: querying all fields stopps execution with error:
+          // querying all fields stopps execution with error:
           // thread 'tokio-runtime-worker' panicked at 'called `Result::unwrap()` on an `Err` value: ColumnDecode { index: "20", source: "mismatched types; Rust type `i64` (as SQL type `INTEGER`) is not compatible with SQL type `TEXT`" }', C:\Users\alexa\.cargo\registry\src\github.com-1ecc6299db9ec823\sqlx-core-0.5.10\src\row.rs:73:37
           // https://github.com/launchbadge/sqlx/issues/1629
+          // if some idVorgeschaeft contain empty strings
+          // prevent this
+          yield app.db.execute(
+            `UPDATE geschaefte SET idVorgeschaeft = NULL WHERE cast(cast(idVorgeschaeft AS integer) AS text) != idVorgeschaeft;`,
+          )
+        } catch (error) {
+          console.log(
+            'error removing empty values from geschaefte.idVorgeschaeft:',
+            error,
+          )
+        }
+        let geschaefte = []
+        try {
           geschaefte = yield app.db.select(
-            `SELECT * FROM geschaefte ORDER BY idGeschaeft DESC`,
+            `
+            SELECT geschaefte.* FROM geschaefte
+            inner join status
+            on geschaefte.status = status.status
+            where 
+              status.geschaeftKannFaelligSein = 1
+              and geschaefte.fristMitarbeiter <= Date()
+            ORDER BY idGeschaeft DESC`,
           )
         } catch (error) {
           addErrorMessage(error)
@@ -216,6 +235,46 @@ export default types
           })
         })
         self.geschaefte = geschaefte
+        if (activeLocation !== 'geschaefte') {
+          setLocation(['geschaefte'])
+        }
+      }),
+      fetchRest: flow(function* () {
+        const location = store.location.toJSON()
+        const activeLocation = location[0]
+        const { app, addErrorMessage, setLocation } = store
+        let geschaefte = []
+        try {
+          geschaefte = yield app.db.select(
+            `
+            SELECT * FROM geschaefte
+            where idGeschaeft not in (
+              SELECT geschaefte.idGeschaeft FROM geschaefte
+              inner join status
+              on geschaefte.status = status.status
+              where 
+                status.geschaeftKannFaelligSein = 1
+                and geschaefte.fristMitarbeiter <= Date()
+            )
+            ORDER BY idGeschaeft DESC`,
+          )
+        } catch (error) {
+          addErrorMessage(error)
+        }
+        // TODO: above execution stopps
+        /**
+         * convert date fields
+         * from YYYY-MM-DD to DD.MM.YYYY
+         */
+        geschaefte.forEach((g) => {
+          const geschaeft = g
+          Object.keys(geschaeft).forEach((field) => {
+            if (isDateField(field)) {
+              geschaeft[field] = convertDateToDdMmYyyy(geschaeft[field])
+            }
+          })
+        })
+        self.geschaefte = [...self.geschaefte.slice(), ...geschaefte]
         if (activeLocation !== 'geschaefte') {
           setLocation(['geschaefte'])
         }
