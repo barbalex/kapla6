@@ -6,12 +6,15 @@ import { FaPlus, FaTrashAlt } from 'react-icons/fa'
 
 import storeContext from '../../storeContext'
 
+const StyledNavLink = styled(NavLink)`
+  min-width: 152px;
+`
 const Sup = styled.sup`
   padding-left: 3px;
 `
 const StyledNavItem = styled(NavItem)`
   display: flex;
-  border: ${props =>
+  border: ${(props) =>
     props.active ? '1px solid rgb(255, 255, 255, .5)' : 'unset'};
   border-radius: 0.25rem;
   margin-right: 5px;
@@ -50,10 +53,10 @@ const Geschaefte = () => {
 
   return (
     <StyledNavItem active={active}>
-      <NavLink id="geschaefte" onClick={onClickGeschaefte}>
+      <StyledNavLink id="geschaefte" onClick={onClickGeschaefte}>
         Geschäfte
         {active && <Sup>{geschaefteSumSup}</Sup>}
-      </NavLink>
+      </StyledNavLink>
       {!active && (
         <UncontrolledTooltip placement="bottom" target="geschaefte">
           Geschäfte anzeigen
