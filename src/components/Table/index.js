@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useCallback, useMemo } from 'react'
+import React, { useContext, useEffect, useCallback } from 'react'
 import { AutoSizer, List } from 'react-virtualized'
 import $ from 'jquery'
 import styled from 'styled-components'
@@ -59,7 +59,8 @@ const Table = () => {
   const { rows: rowsPassed, id, table, reset } = store.table
 
   console.log('Table', { rowsPassed: toJS(rowsPassed), id, table })
-  const rows = table ? [...rowsPassed[table]] : []
+  const rows = table ? [...toJS(rowsPassed)[table]] : []
+  console.log('Table, rows', toJS(rows))
 
   let rowsSorted
   switch (table) {
@@ -107,7 +108,7 @@ const Table = () => {
     default:
       rowsSorted = []
   }
-  console.log('Table, rowsSorted:', toJS(rowsSorted))
+  console.log('Table, rowsSorted:', toJS(rowsSorted.slice()))
 
   const rowRenderer = useCallback(
     ({ key, index, style }) => (
@@ -123,6 +124,8 @@ const Table = () => {
   const windowWidth = $(window).width()
   const tableWidth = (windowWidth * tableColumnWidth) / 100
   const normalFieldWidth = (tableWidth - 50) / (headers.length - 1)
+
+  console.log('Table, headers:', headers)
 
   useEffect(() => {
     return () => reset()
