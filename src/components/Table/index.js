@@ -3,6 +3,7 @@ import { AutoSizer, List } from 'react-virtualized'
 import $ from 'jquery'
 import styled from 'styled-components'
 import { observer } from 'mobx-react-lite'
+import { toJS } from 'mobx'
 
 import ErrorBoundary from '../shared/ErrorBoundary'
 import TableItem from './TableItem'
@@ -55,58 +56,58 @@ const noRowsRenderer = () => <StyledNoRowsDiv>lade Daten...</StyledNoRowsDiv>
 const Table = () => {
   const store = useContext(storeContext)
   const { tableColumnWidth } = store.app
-  const { rows, id, table, reset } = store.table
-  const rowsSorted = useMemo(() => {
-    let rowsSorted = [...rows[table]]
-    switch (table) {
-      case 'interne':
-      case 'externe':
-        rowsSorted = rowsSorted.sort((a, b) =>
-          (a?.name ?? '').localeCompare(b.name),
-        )
-        break
-      case 'abteilung':
-        rowsSorted = rowsSorted.sort((a, b) =>
-          (a?.abteilung ?? '').localeCompare(b.abteilung),
-        )
-        break
-      case 'aktenstandort':
-        rowsSorted = rowsSorted.sort((a, b) =>
-          (a?.aktenstandort ?? '').localeCompare(b.aktenstandort),
-        )
-        break
-      case 'geschaeftsart':
-        rowsSorted = rowsSorted.sort((a, b) =>
-          (a?.geschaeftsart ?? '').localeCompare(b.geschaeftsart),
-        )
-        break
-      case 'parlVorstossTyp':
-        rowsSorted = rowsSorted.sort((a, b) =>
-          (a?.parlVorstossTyp ?? '').localeCompare(b.parlVorstossTyp),
-        )
-        break
-      case 'rechtsmittelInstanz':
-        rowsSorted = rowsSorted.sort((a, b) =>
-          (a?.rechtsmittelInstanz ?? '').localeCompare(b.rechtsmittelInstanz),
-        )
-        break
-      case 'rechtsmittelErledigung':
-        rowsSorted = rowsSorted.sort((a, b) =>
-          (a?.rechtsmittelErledigung ?? '').localeCompare(
-            b.rechtsmittelErledigung,
-          ),
-        )
-        break
-      case 'status':
-        rowsSorted = rowsSorted.sort((a, b) =>
-          (a?.status ?? '').localeCompare(b.status),
-        )
-        break
-      default:
-      // do nothing
-    }
-    return rowsSorted
-  }, [rows, table])
+  const { rows: rowsPassed, id, table, reset } = store.table
+
+  console.log('Table', { rowsPassed: toJS(rowsPassed), id, table })
+  const rows = table ? [...rowsPassed[table]] : []
+
+  let rowsSorted
+  switch (table) {
+    case 'interne':
+    case 'externe':
+      rowsSorted = rows.sort((a, b) => (a?.name ?? '').localeCompare(b.name))
+      break
+    case 'abteilung':
+      rowsSorted = rows.sort((a, b) =>
+        (a?.abteilung ?? '').localeCompare(b.abteilung),
+      )
+      break
+    case 'aktenstandort':
+      rowsSorted = rows.sort((a, b) =>
+        (a?.aktenstandort ?? '').localeCompare(b.aktenstandort),
+      )
+      break
+    case 'geschaeftsart':
+      rowsSorted = rows.sort((a, b) =>
+        (a?.geschaeftsart ?? '').localeCompare(b.geschaeftsart),
+      )
+      break
+    case 'parlVorstossTyp':
+      rowsSorted = rows.sort((a, b) =>
+        (a?.parlVorstossTyp ?? '').localeCompare(b.parlVorstossTyp),
+      )
+      break
+    case 'rechtsmittelInstanz':
+      rowsSorted = rows.sort((a, b) =>
+        (a?.rechtsmittelInstanz ?? '').localeCompare(b.rechtsmittelInstanz),
+      )
+      break
+    case 'rechtsmittelErledigung':
+      rowsSorted = rows.sort((a, b) =>
+        (a?.rechtsmittelErledigung ?? '').localeCompare(
+          b.rechtsmittelErledigung,
+        ),
+      )
+      break
+    case 'status':
+      rowsSorted = rows.sort((a, b) =>
+        (a?.status ?? '').localeCompare(b.status),
+      )
+      break
+    default:
+      rowsSorted = []
+  }
+  console.log('Table, rowsSorted:', toJS(rowsSorted))
 
   const rowRenderer = useCallback(
     ({ key, index, style }) => (

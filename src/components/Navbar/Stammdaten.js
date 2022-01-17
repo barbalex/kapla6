@@ -49,9 +49,10 @@ const Stammdaten = () => {
   const fetchExterne = useCallback(() => fetch('externe'), [fetch])
   const fetchAktenstandort = useCallback(() => fetch('aktenstandort'), [fetch])
   const fetchGeschaeftsart = useCallback(() => fetch('geschaeftsart'), [fetch])
-  const fetchParlVorstossTyp = useCallback(() => fetch('parlVorstossTyp'), [
-    fetch,
-  ])
+  const fetchParlVorstossTyp = useCallback(
+    () => fetch('parlVorstossTyp'),
+    [fetch],
+  )
   const fetchRechtsmittelInstanz = useCallback(
     () => fetch('rechtsmittelInstanz'),
     [fetch],
@@ -62,11 +63,10 @@ const Stammdaten = () => {
   )
   const fetchStatus = useCallback(() => fetch('status'), [fetch])
   const onClickInsert = useCallback(() => rows.insert(table), [rows, table])
-  const onClickDelete = useCallback(() => rows.delete(table, id), [
-    id,
-    rows,
-    table,
-  ])
+  const onClickDelete = useCallback(
+    () => rows.delete(table, id),
+    [id, rows, table],
+  )
   const isActive = activeLocation === 'table'
 
   return (
@@ -76,7 +76,7 @@ const Stammdaten = () => {
           {table ? (
             <span>
               {tableName}
-              <Sup>{table ? rows[table].length : 0}</Sup>
+              <Sup>{table ? rows[table]?.length : 0}</Sup>
             </span>
           ) : (
             'Stammdaten'
