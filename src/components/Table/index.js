@@ -58,9 +58,7 @@ const Table = () => {
   const { tableColumnWidth } = store.app
   const { rows: rowsPassed, id, table, reset } = store.table
 
-  console.log('Table', { rowsPassed: toJS(rowsPassed), id, table })
   const rows = table ? [...toJS(rowsPassed)[table]] : []
-  console.log('Table, rows', toJS(rows))
 
   let rowsSorted
   switch (table) {
@@ -108,7 +106,6 @@ const Table = () => {
     default:
       rowsSorted = []
   }
-  console.log('Table, rowsSorted:', toJS(rowsSorted.slice()))
 
   const indexOfActiveId = rowsSorted.findIndex((r) => r.id === id)
   const headers = Object.keys(rowsSorted[0] || {})
@@ -124,8 +121,6 @@ const Table = () => {
     ),
     [rowsSorted, headers],
   )
-
-  console.log('Table, headers:', headers)
 
   useEffect(() => {
     return () => reset()
