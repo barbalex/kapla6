@@ -9,11 +9,9 @@ import setWindowPosition from './setWindowPosition'
 import setWindowTitle from './setWindowTitle'
 
 const fetchInitialData = async (store) => {
-  await Promise.all([setWindowPosition(), setWindowTitle()])
-
-  await fetchUsername(store)
   setInitialFilters(store)
-  await getAllData(store)
+  await fetchUsername(store)
+  await Promise.all([setWindowPosition(), setWindowTitle(), getAllData(store)])
 
   // wait vor next version after tauri v1.0.0-beta.8
   // https://github.com/tauri-apps/tauri/issues/2996
