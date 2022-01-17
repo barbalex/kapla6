@@ -132,6 +132,7 @@ export default types
         self.filterType = 'nach Volltext'
         self.filterFields = []
         self.activeId = null
+        console.log('store geschaefte filterByFulltext, value:', value)
         yield self.fetchFilterFulltextIds(value)
         /**
          * if pages are active,
@@ -149,6 +150,7 @@ export default types
         }
       }),
       fetchFilterFulltextIds: flow(function* (filter) {
+        console.log('store geschaefte fetchFilterFulltextIds, filter:', filter)
         // convert to lower case if possible
         let filterValue = filter.toLowerCase ? filter.toLowerCase() : filter
         if (filterValue.toString) {
@@ -157,6 +159,10 @@ export default types
           filterValue = filterValue.toString()
         }
         let result = []
+        console.log(
+          'store geschaefte fetchFilterFulltextIds, filterValue:',
+          filterValue,
+        )
         try {
           result = yield store.app.db.select(
             `select idGeschaeft from fts where value match '"${filterValue}"*'`,
@@ -166,7 +172,12 @@ export default types
           self.filterFulltextIds = []
           return
         }
+        console.log('store geschaefte fetchFilterFulltextIds, result:', result)
         const filterFulltextIds = result.map((o) => o.idGeschaeft)
+        console.log(
+          'store geschaefte fetchFilterFulltextIds, filterFulltextIds:',
+          filterFulltextIds,
+        )
         /*console.log('fetchFilterFulltextIds', {
           filter,
           filterFulltextIds,
