@@ -22,7 +22,7 @@ const getAllData = async (store) => {
     store.abteilungOptionsGet(),
     store.geschaefte?.fetchRest(),
   ])
-  console.log('fetched initial data')
+  //console.log('fetched initial data')
   return
 }
 
