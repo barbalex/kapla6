@@ -2,6 +2,7 @@ import React, { useContext, useCallback, useState, useEffect } from 'react'
 import { FormGroup, Form } from 'reactstrap'
 import { observer } from 'mobx-react-lite'
 import styled from 'styled-components'
+import { toJS } from 'mobx'
 
 import storeContext from '../../storeContext'
 import Input from '../shared/Input'
@@ -23,7 +24,8 @@ const StyledFormGroup = styled(FormGroup)`
 const TableRow = () => {
   const store = useContext(storeContext)
   const { rows, id, table, updateInDb } = store.table
-  const row = rows[table].find(r => r.id === id)
+  const row = rows[table].find((r) => r.id === id)
+  console.log('TableRow', { row: toJS(row) })
 
   const saveToDb = useCallback(
     ({ value, field }) => updateInDb(id, field, value),
@@ -33,7 +35,7 @@ const TableRow = () => {
   const [errors, setErrors] = useState({})
   useEffect(() => {
     setErrors({})
-  }, [row.id])
+  }, [row?.id])
 
   if (row === undefined) return null
 
