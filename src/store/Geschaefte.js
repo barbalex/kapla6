@@ -306,7 +306,7 @@ export default types
       geschaeftInsert: flow(function* () {
         const location = store.location.toJSON()
         const activeLocation = location[0]
-        const { app, setLocation } = store
+        const { app, setLocation, addErrorMessage } = store
         const { username } = app
         const now = moment().format('YYYY-MM-DD HH:mm:ss')
         let result
@@ -319,9 +319,10 @@ export default types
                 ('${now}', '${username}')`,
           )
         } catch (error) {
+          console.log('error inserting new geschaeft:', error)
           return self.addErrorMessage(error.message)
         }
-        const idGeschaeft = result.lastInsertRowid
+        const idGeschaeft = result.lastInsertId
 
         // return full dataset
         let geschaefte
@@ -336,7 +337,7 @@ export default types
                 idGeschaeft = ${idGeschaeft}`,
           )
         } catch (error) {
-          return self.addErrorMessage(error.message)
+          return addErrorMessage(error.message)
         }
         const geschaeft = geschaefte?.[0]
         self.geschaefte.unshift(geschaeft)
