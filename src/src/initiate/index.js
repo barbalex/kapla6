@@ -1,31 +1,15 @@
-import { app, event, window, process } from '@tauri-apps/api'
+import { event, window, process } from '@tauri-apps/api'
 
-import fetchUsername from './fetchUsername'
-import saveConfig from './saveConfig'
-import getConfig from './getConfig'
-import getAllData from './getAllData'
-import setInitialFilters from './setInitialFilters'
+import fetchUsername from '../fetchUsername'
+import saveConfig from '../saveConfig'
+import getConfig from '../getConfig'
+import getAllData from '../getAllData'
+import setInitialFilters from '../setInitialFilters'
+import setWindowPosition from './setWindowPosition'
+import setWindowTitle from './setWindowTitle'
 
 const fetchInitialData = async (store) => {
-  // get last window state
-  // and set it again
-  const { lastWindowState } = await getConfig()
-  if (lastWindowState) {
-    const { x, y, width, height, maximized } = lastWindowState
-    if (maximized) {
-      window.appWindow.maximize()
-    } else {
-      if (x !== undefined && y !== undefined) {
-        window.appWindow.setPosition(new window.LogicalPosition(x, y))
-      }
-      if (width !== undefined && height !== undefined) {
-        window.appWindow.setSize(new window.LogicalSize(width, height))
-      }
-    }
-  }
-
-  const appVersion = await app.getVersion()
-  window.appWindow.setTitle(`Kapla v${appVersion}`)
+  await Promise.all([setWindowPosition(), setWindowTitle()])
 
   await fetchUsername(store)
   setInitialFilters(store)
