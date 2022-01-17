@@ -24,11 +24,8 @@ const GeschaefteLayout = () => {
 
   const location = store.location.toJSON()
   const activeLocation = location[0]
-  const {
-    geschaefteColumnWidth,
-    setGeschaefteColumnWidth,
-    saveConfig,
-  } = store.app
+  const { geschaefteColumnWidth, setGeschaefteColumnWidth, saveConfig } =
+    store.app
   const { activeId } = store.geschaefte
   const showGeschaeft = activeLocation === 'geschaefte' && !!activeId
   const showPages = activeLocation === 'pages'

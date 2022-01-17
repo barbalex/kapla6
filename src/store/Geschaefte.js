@@ -216,7 +216,7 @@ export default types
             where 
               status.geschaeftKannFaelligSein = 1
               and geschaefte.fristMitarbeiter <= Date()
-            ORDER BY idGeschaeft DESC`,
+            ORDER BY geschaefte.idGeschaeft DESC`,
           )
         } catch (error) {
           addErrorMessage(error)

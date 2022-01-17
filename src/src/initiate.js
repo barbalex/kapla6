@@ -28,8 +28,8 @@ const fetchInitialData = async (store) => {
   window.appWindow.setTitle(`Kapla v${appVersion}`)
 
   await fetchUsername(store)
-  await getAllData(store)
   setInitialFilters(store)
+  await getAllData(store)
 
   // wait vor next version after tauri v1.0.0-beta.8
   // https://github.com/tauri-apps/tauri/issues/2996

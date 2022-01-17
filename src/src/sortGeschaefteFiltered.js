@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import moment from 'moment'
+import { toJS } from 'mobx'
 
 import isDateField from './isDateField'
 
@@ -7,6 +8,7 @@ const sortGeschaefteFiltered = (store) => {
   const geschaeftePassed = store.geschaefte.geschaeftePlusFiltered
   const { sortFields } = store.geschaefte
   let geschaefte
+  console.log('sortFields', toJS(sortFields))
   sortFields.forEach((sf) => {
     geschaefte = _.sortBy(geschaeftePassed, (g) => {
       if (g[sf.field]) {
