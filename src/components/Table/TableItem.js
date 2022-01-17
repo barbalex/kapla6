@@ -25,32 +25,30 @@ const StyledBodyCell = styled.div`
   max-width: ${(props) => `${props.maxWidth}px`};
 `
 
-const TableItem = ({ index, rows }) => {
+const TableItem = ({ index, rows, headers }) => {
   const store = useContext(storeContext)
   const { id, toggleActivatedRow } = store.table
   const row = rows[index]
   const { tableColumnWidth } = store.app
-  const keys = Object.keys(row)
-  const values = Object.values(row)
   const windowWidth = $(window).width()
   const tableWidth = (windowWidth * tableColumnWidth) / 100
-  const normalFieldWidth = (tableWidth - 50) / (keys.length - 1)
+  const normalFieldWidth = (tableWidth - 50) / (headers.length - 1)
   const isActive = !!id && id === row.id
 
-  const onClickTableRow = useCallback(() => toggleActivatedRow(row.id), [
-    row.id,
-    toggleActivatedRow,
-  ])
+  const onClickTableRow = useCallback(
+    () => toggleActivatedRow(row.id),
+    [row.id, toggleActivatedRow],
+  )
 
   return (
     <StyledRow isActive={isActive}>
-      {values.map((val, i) => (
+      {headers.map((val, i) => (
         <StyledBodyCell
           key={i}
-          maxWidth={keys[i] === 'id' ? 50 : normalFieldWidth}
+          maxWidth={val === 'id' ? 50 : normalFieldWidth}
           onClick={onClickTableRow}
         >
-          <Linkify>{val}</Linkify>
+          <Linkify>{row[val]}</Linkify>
         </StyledBodyCell>
       ))}
     </StyledRow>

@@ -110,20 +110,20 @@ const Table = () => {
   }
   console.log('Table, rowsSorted:', toJS(rowsSorted.slice()))
 
-  const rowRenderer = useCallback(
-    ({ key, index, style }) => (
-      <div key={key} style={style}>
-        <TableItem index={index} rows={rowsSorted} />
-      </div>
-    ),
-    [rowsSorted],
-  )
-
   const indexOfActiveId = rowsSorted.findIndex((r) => r.id === id)
   const headers = Object.keys(rowsSorted[0] || {})
   const windowWidth = $(window).width()
   const tableWidth = (windowWidth * tableColumnWidth) / 100
   const normalFieldWidth = (tableWidth - 50) / (headers.length - 1)
+
+  const rowRenderer = useCallback(
+    ({ key, index, style }) => (
+      <div key={key} style={style}>
+        <TableItem index={index} rows={rowsSorted} headers={headers} />
+      </div>
+    ),
+    [rowsSorted, headers],
+  )
 
   console.log('Table, headers:', headers)
 

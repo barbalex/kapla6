@@ -25,7 +25,6 @@ const TableRow = () => {
   const store = useContext(storeContext)
   const { rows, id, table, updateInDb } = store.table
   const row = rows[table].find((r) => r.id === id)
-  console.log('TableRow', { row: toJS(row) })
 
   const saveToDb = useCallback(
     ({ value, field }) => updateInDb(id, field, value),
@@ -39,6 +38,7 @@ const TableRow = () => {
 
   if (row === undefined) return null
 
+  // TODO: need to order Object.keys(row) same as header
   return (
     <StyledRow>
       <Form>
