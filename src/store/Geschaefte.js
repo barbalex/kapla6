@@ -1,6 +1,7 @@
 import { types, getParent, flow } from 'mobx-state-tree'
 import _ from 'lodash'
 import moment from 'moment'
+import { tauri } from '@tauri-apps/api'
 
 import filterGeschaefte from '../src/filterGeschaefte'
 import sortGeschaefteFiltered from '../src/sortGeschaefteFiltered'
@@ -159,14 +160,18 @@ export default types
           filterValue = filterValue.toString()
         }
         let result = []
-        console.log(
-          'store geschaefte fetchFilterFulltextIds, filterValue:',
+        console.log('store geschaefte fetchFilterFulltextIds', {
           filterValue,
-        )
+          store,
+        })
         try {
-          result = yield store.app.db.select(
-            `select idGeschaeft from fts where value match '"${filterValue}"*'`,
-          )
+          // result = yield store.app.db.select(
+          //   `select idGeschaeft from fts where value match '"${filterValue}"*'`,
+          // )
+          result = yield tauri.invoke('exists_file', {
+            searchtext: filterValue,
+            dbpath: store.app.dbpath,
+          })
         } catch (error) {
           store.addErrorMessage(error.message)
           self.filterFulltextIds = []

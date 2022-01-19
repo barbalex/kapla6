@@ -18,6 +18,9 @@ serde = { version = "1.0", features = [ "derive" ] }
 tauri = { git = "https://github.com/tauri-apps/tauri", branch = "next", features = ["api-all"], version = "1.0.0-beta.8" }
 tauri-plugin-sql = { git = "https://github.com/tauri-apps/tauri-plugin-sql", features = [ "sqlite" ] }
 whoami = "1.2.1"
+sqlx = { version = "0.5", features = [ "runtime-tokio-rustls", "sqlite" ] }
+tokio = { version = "1.15", features = [ "full" ] }
+futures = "0.3.19"
 
 [patch.crates-io]
 tauri = { git = "https://github.com/tauri-apps/tauri", branch = "next" }

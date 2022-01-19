@@ -53,11 +53,14 @@ checksum = "84450d0b4a8bd1ba4144ce8ce718fbc5d071358b1e5384bace6536b3d1f2d5b3"
 name = "app"
 version = "0.1.0"
 dependencies = [
+ "futures",
  "serde",
  "serde_json",
+ "sqlx",
  "tauri",
  "tauri-build",
  "tauri-plugin-sql",
+ "tokio",
  "whoami",
 ]
 
@@ -2657,9 +2660,9 @@ dependencies = [
 
 [[package]]
 name = "security-framework"
-version = "2.4.2"
+version = "2.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "525bc1abfda2e1998d152c45cf13e696f76d0a4972310b22fac1658b05df7c87"
+checksum = "d09d3c15d814eda1d6a836f2f2b56a6abc1446c8a34351cb3180d3db92ffe4ce"
 dependencies = [
  "bitflags",
  "core-foundation",
@@ -2670,9 +2673,9 @@ dependencies = [
 
 [[package]]
 name = "security-framework-sys"
-version = "2.4.2"
+version = "2.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a9dd14d83160b528b7bfd66439110573efcfbe281b17fc2ca9f39f550d619c7e"
+checksum = "e90dd10c41c6bfc633da6e0c659bd25d31e0791e5974ac42970267d59eba87f7"
 dependencies = [
  "core-foundation-sys",
  "libc",
@@ -2767,12 +2770,12 @@ dependencies = [
 
 [[package]]
 name = "serde_urlencoded"
-version = "0.7.0"
+version = "0.7.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "edfa57a7f8d9c1d260a549e7224100f6c43d43f9103e06dd8b4095a9b2b43ce9"
+checksum = "d3491c14715ca2294c4d6a88f15e84739788c1d030eed8c110436aafdaa2f3fd"
 dependencies = [
  "form_urlencoded",
- "itoa 0.4.8",
+ "itoa 1.0.1",
  "ryu",
  "serde",
 ]
@@ -2820,10 +2823,19 @@ dependencies = [
 ]
 
 [[package]]
-name = "siphasher"
-version = "0.3.8"
+name = "signal-hook-registry"
+version = "1.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ba1eead9e94aa5a2e02de9e7839f96a007f686ae7a1d57c7797774810d24908a"
+checksum = "e51e73328dc4ac0c7ccbda3a494dfa03df1de2f46018127f60c693f2648455b0"
+dependencies = [
+ "libc",
+]
+
+[[package]]
+name = "siphasher"
+version = "0.3.9"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a86232ab60fa71287d7f2ddae4a7073f6b7aac33631c3015abb556f08c6d0a3e"
 
 [[package]]
 name = "slab"
@@ -3139,7 +3151,7 @@ dependencies = [
 [[package]]
 name = "tao"
 version = "0.5.2"
-source = "git+https://github.com/tauri-apps/tao?branch=next#262ddf7b8e73e7aaf461e34766f30244e31bb5d5"
+source = "git+https://github.com/tauri-apps/tao?branch=next#6db637557847b882ef5821bc1430644b673af562"
 dependencies = [
  "bitflags",
  "cairo-rs",
@@ -3202,7 +3214,7 @@ dependencies = [
 [[package]]
 name = "tauri"
 version = "1.0.0-beta.8"
-source = "git+https://github.com/tauri-apps/tauri?branch=next#8376e3c035b94f920b2933d4eb8c366506b919bf"
+source = "git+https://github.com/tauri-apps/tauri?branch=next#1eec7282c76e0a2bef030a764efece8d0c145ce3"
 dependencies = [
  "attohttpc",
  "base64",
@@ -3264,7 +3276,7 @@ dependencies = [
 [[package]]
 name = "tauri-codegen"
 version = "1.0.0-beta.4"
-source = "git+https://github.com/tauri-apps/tauri?branch=next#8376e3c035b94f920b2933d4eb8c366506b919bf"
+source = "git+https://github.com/tauri-apps/tauri?branch=next#1eec7282c76e0a2bef030a764efece8d0c145ce3"
 dependencies = [
  "blake3",
  "kuchiki",
@@ -3282,7 +3294,7 @@ dependencies = [
 [[package]]
 name = "tauri-macros"
 version = "1.0.0-beta.5"
-source = "git+https://github.com/tauri-apps/tauri?branch=next#8376e3c035b94f920b2933d4eb8c366506b919bf"
+source = "git+https://github.com/tauri-apps/tauri?branch=next#1eec7282c76e0a2bef030a764efece8d0c145ce3"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -3307,7 +3319,7 @@ dependencies = [
 [[package]]
 name = "tauri-runtime"
 version = "0.2.1"
-source = "git+https://github.com/tauri-apps/tauri?branch=next#8376e3c035b94f920b2933d4eb8c366506b919bf"
+source = "git+https://github.com/tauri-apps/tauri?branch=next#1eec7282c76e0a2bef030a764efece8d0c145ce3"
 dependencies = [
  "gtk",
  "http",
@@ -3325,7 +3337,7 @@ dependencies = [
 [[package]]
 name = "tauri-runtime-wry"
 version = "0.2.1"
-source = "git+https://github.com/tauri-apps/tauri?branch=next#8376e3c035b94f920b2933d4eb8c366506b919bf"
+source = "git+https://github.com/tauri-apps/tauri?branch=next#1eec7282c76e0a2bef030a764efece8d0c145ce3"
 dependencies = [
  "gtk",
  "ico",
@@ -3360,7 +3372,7 @@ dependencies = [
 [[package]]
 name = "tauri-utils"
 version = "1.0.0-beta.3"
-source = "git+https://github.com/tauri-apps/tauri?branch=next#8376e3c035b94f920b2933d4eb8c366506b919bf"
+source = "git+https://github.com/tauri-apps/tauri?branch=next#1eec7282c76e0a2bef030a764efece8d0c145ce3"
 dependencies = [
  "heck 0.4.0",
  "html5ever",
@@ -3471,8 +3483,23 @@ dependencies = [
  "memchr",
  "mio",
  "num_cpus",
+ "once_cell",
+ "parking_lot",
  "pin-project-lite",
+ "signal-hook-registry",
+ "tokio-macros",
  "winapi",
+]
+
+[[package]]
+name = "tokio-macros"
+version = "1.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b557f72f448c511a979e2564e55d74e6c4432fc96ff4f6241bc6bded342643b7"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
 ]
 
 [[package]]
