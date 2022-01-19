@@ -17,6 +17,13 @@ fn exists_file(path: &str) -> bool {
   return exists;
 }
 
+// issue: sqlx returning null values when querying fts5
+// https://github.com/launchbadge/sqlx/issues/1637
+// Idea: query in rust, try to type the idGeschaeft column?
+// use `try_get_unchecked`? https://github.com/launchbadge/sqlx/issues/1596#issue-1087723444
+// querying sqlite in rust example: https://github.com/launchbadge/sqlx/issues/1596#issuecomment-1000574562
+
+
 // #[tauri::command]
 // fn inform_choose_db() {
 //   tauri::api::dialog::message(
