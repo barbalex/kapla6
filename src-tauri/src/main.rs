@@ -25,7 +25,9 @@ fn exists_file(path: &str) -> bool {
 // https://github.com/launchbadge/sqlx#quickstart
 
 use sqlx::sqlite::SqlitePoolOptions;
+use async_std::task;
 
+//#[async_std::main]
 #[tauri::command]
 async fn fts_search(dbpath: &str, searchtext: &str) -> Result<Vec<i64>, sqlx::Error> {
   let connection_string = format!("sqlite://{}", dbpath);

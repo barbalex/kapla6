@@ -3,7 +3,7 @@
   "version": "3.alpha.1",
   "private": true,
   "dependencies": {
-    "@babel/core": "7.16.7",
+    "@babel/core": "7.16.12",
     "@babel/eslint-parser": "7.16.5",
     "@tauri-apps/api": "1.0.0-beta.8",
     "bootstrap": "4.6.1",
@@ -15,7 +15,7 @@
     "exceljs": "4.3.0",
     "jquery": "3.6.0",
     "lodash": "4.17.21",
-    "mobx": "6.3.12",
+    "mobx": "6.3.13",
     "mobx-react": "7.2.1",
     "mobx-react-lite": "3.2.3",
     "mobx-state-tree": "5.1.0",
@@ -40,8 +40,7 @@
     "styled-components": "5.3.3",
     "tauri-plugin-sql-api": "github:tauri-apps/tauri-plugin-sql",
     "use-debounce": "7.0.1",
-    "use-detect-print": "0.0.2",
-    "web-vitals": "2.1.0"
+    "use-detect-print": "0.0.2"
   },
   "resolutions": {
     "mini-css-extract-plugin": "2.4.5"

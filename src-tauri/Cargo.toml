@@ -20,7 +20,7 @@ tauri-plugin-sql = { git = "https://github.com/tauri-apps/tauri-plugin-sql", fea
 whoami = "1.2.1"
 sqlx = { version = "0.5", features = [ "runtime-tokio-rustls", "sqlite" ] }
 tokio = { version = "1.15", features = [ "full" ] }
-futures = "0.3.19"
+async-std = "1.10.0"
 
 [patch.crates-io]
 tauri = { git = "https://github.com/tauri-apps/tauri", branch = "next" }
