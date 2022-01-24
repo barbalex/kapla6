@@ -29,23 +29,29 @@ use sqlx::sqlite::SqlitePoolOptions;
 // use tauri::State for database pool?
 // see: https://tauri.studio/docs/guides/command/#complete-example
 
-//#[derive(sqlx::FromRow)]
-#[derive(serde::Serialize)]
+//#[derive(serde::Serialize)]
+#[derive(sqlx::FromRow)]
 struct IdGeschaeft { idGeschaeft: std::option::Option<i32> }
 
 #[tauri::command]
-async fn fts_search(db_path: String, search_text: String) -> Vec<std::option::Option<i32>>{
+async fn fts_search(db_path: String, search_text: Option<String>) -> Result<Vec<IdGeschaeft>, sqlx::Error> {
   let connection_string = format!("sqlite:///{}", db_path);
   let pool = SqlitePoolOptions::new()
       .max_connections(5)
       .connect(&connection_string).await;
 
-  // let rows = sqlx::query_as!(IdGeschaeft, "select idGeschaeft from fts where value match '\"?1\"*'", search_text)
-  //     .fetch_all(&pool).await;
-  let rows = sqlx::query_as!(IdGeschaeft, "select idGeschaeft from fts where value match 'natur*'")
+  match search_text {
+    NONE => {
+      let rows = sqlx::query_as!(IdGeschaeft, "select idGeschaeft from fts")
       .fetch_all(&pool).await;
-
-  rows.into()
+      rows.into()
+    }
+    Some(search_text) => {
+      let rows = sqlx::query_as!(IdGeschaeft, "select idGeschaeft from fts where value match '?*'", search_text)
+      .fetch_all(&pool).await;
+      rows.into()
+    }
+  }
 }
 
 fn main() {
