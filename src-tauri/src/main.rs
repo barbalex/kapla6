@@ -25,31 +25,25 @@ fn exists_file(path: &str) -> bool {
 // https://github.com/launchbadge/sqlx#quickstart
 
 use sqlx::sqlite::SqlitePoolOptions;
-use async_std::task;
 
-//#[async_std::main]
-// #[tauri::command]
-// async fn fts_search(dbpath: &str, searchtext: &str) -> Result<Vec<i64>, sqlx::Error> {
-//   let connection_string = format!("sqlite://{}", dbpath);
-//   let pool = SqlitePoolOptions::new()
-//       .max_connections(5)
-//       .connect(&connection_string).await?;
+#[tauri::command]
+async fn fts_search(db_path: String, search_text: String) -> Vec<i64>{
+  let connection_string = format!("sqlite://{}", db_path);
+  let pool = SqlitePoolOptions::new()
+      .max_connections(5)
+      .connect(&connection_string).await;
 
-//   #[derive(sqlx::FromRow)]
-//   struct IdGeschaeft { idGeschaeft: i64 }
-//   let rows = sqlx::query_as::<_, IdGeschaeft>("select idGeschaeft from fts where value match '\"?\"*'")
-//       .bind(searchtext)
-//       .fetch_one(&pool);
+  #[derive(sqlx::FromRow)]
+  struct IdGeschaeft { idGeschaeft: i64 }
+  let rows = sqlx::query_as!(IdGeschaeft, "select idGeschaeft from fts where value match '\"?\"*'", search_text)
+      .fetch_all(&pool).await;
 
-//   while let Some(row) = rows.try_next().await? {
-//     // map the row into a user-defined domain type
-//     let idGeschaeft: i64 = row.try_get("idGeschaeft")?;
-//   }
-// }
+  rows.into()
+}
 
 fn main() {
   tauri::Builder::default()
-  .invoke_handler(tauri::generate_handler![get_username, exists_file])
+  .invoke_handler(tauri::generate_handler![get_username, exists_file, fts_search])
   .plugin(TauriSql::default())
     .run(tauri::generate_context!())
      .expect("error while running tauri application");

@@ -2,3 +2,8 @@
 # will have compiled files and executables
 /target/
 WixTools
+
+# sqlx macro needs a db to analyze types at dev runtime
+# absolute path did not seem to work
+# so copied db into code but ignore here
+kapla.db
