@@ -42,12 +42,7 @@
     "use-debounce": "7.0.1",
     "use-detect-print": "0.0.2"
   },
-  "resolutions": {
-    "mini-css-extract-plugin": "2.4.5"
-  },
-  "dependencies-comments": {
-    "mini-css-extract-plugin": "2.4.5: do not upgrade to 2.5.0. Needed because of https://github.com/facebook/create-react-app/issues/11930"
-  },
+  "dependencies-comments": {},
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
