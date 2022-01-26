@@ -30,7 +30,7 @@ use sqlx::sqlite::SqlitePoolOptions;
 // see: https://tauri.studio/docs/guides/command/#complete-example
 
 //#[derive(serde::Serialize)]
-#[derive(sqlx::FromRow)]
+//#[derive(sqlx::FromRow)]
 struct IdGeschaeft {
   idGeschaeft: std::option::Option<i32>,
 }
@@ -41,11 +41,15 @@ async fn fts_search(
   db_path: String,
   search_text: Option<String>,
 ) -> Result<Vec<IdGeschaft>, String> {
+  //use IdGeschaeft;
+  use crate::IdGeschaeft;
   let connection_string = format!("sqlite:///{}", db_path);
   let pool = SqlitePoolOptions::new()
     .max_connections(5)
     .connect(&connection_string)
     .await
+    .map_err(|e| e.to_string())
+    // TODO: need to return if this errors
     .expect("error building connection pool");
 
   let rows = sqlx::query_as!(
