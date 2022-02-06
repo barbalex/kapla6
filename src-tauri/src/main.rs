@@ -29,67 +29,63 @@ use sqlx::sqlite::SqlitePoolOptions;
 // use tauri::State for database pool?
 // see: https://tauri.studio/docs/guides/command/#complete-example
 
-#[derive(serde::Serialize)]
-struct IdGeschaeft {
-  idGeschaeft: std::option::Option<i32>,
-}
+// #[derive(serde::Serialize)]
+// struct IdGeschaeft {
+//   idGeschaeft: std::option::Option<i32>,
+// }
 
 // https://github.com/launchbadge/sqlx/issues/1637#issuecomment-1020651529
-#[tauri::command]
-async fn fts_search(
-  db_path: String,
-  search_text: Option<String>,
-) -> Result<Vec<IdGeschaeft>, String> {
-  let connection_string = format!("sqlite:///{}", db_path);
-  let pool = SqlitePoolOptions::new()
-    .max_connections(5)
-    .connect(&connection_string)
-    .await
-    .map_err(|e| e.to_string())
-    .expect("error building connection pool");
-  // TODO: need to return if this errors
-  // But following does not work because error returned is not a string
-  // match pool {
-  //   Ok(pool) => pool,
-  //   Err(error) => return Err(error.to_string()),
-  // }
-  // match pool {
-  //   Ok(pool) => pool,
-  //   Err(error) => return Err(error),
-  // }
+// #[tauri::command]
+// async fn fts_search(
+//   db_path: String,
+//   search_text: Option<String>,
+// ) -> Result<Vec<IdGeschaeft>, String> {
+//   let connection_string = format!("sqlite:///{}", db_path);
+//   let pool = SqlitePoolOptions::new()
+//     .max_connections(5)
+//     .connect(&connection_string)
+//     .await
+//     .map_err(|e| e.to_string())
+//     .expect("error building connection pool");
+//   // TODO: need to return if this errors
+//   // But following does not work because error returned is not a string
+//   // match pool {
+//   //   Ok(pool) => pool,
+//   //   Err(error) => return Err(error.to_string()),
+//   // }
+//   // match pool {
+//   //   Ok(pool) => pool,
+//   //   Err(error) => return Err(error),
+//   // }
 
-  let rows = sqlx::query_as!(
-    IdGeschaeft,
-    "select idGeschaeft from fts where value match 'natur*'"
-  )
-  .fetch_all(&pool)
-  .await
-  .map_err(|e| e.to_string())
-  .expect("Error querying from fts");
+//   let rows = sqlx::query_as!(
+//     IdGeschaeft,
+//     "select idGeschaeft from fts where value match 'natur*'"
+//   )
+//   .fetch_all(&pool)
+//   .await
+//   .map_err(|e| e.to_string())
+//   .expect("Error querying from fts");
 
-  // rows.into()
+//   // rows.into()
 
-  // match search_text {
-  //   NONE => {
-  //     let rows = sqlx::query_as!(IdGeschaeft, "select idGeschaeft from fts")
-  //     .fetch_all(&pool).await.map_err(|e| e.to_string());
-  //     rows.into()
-  //   }
-  //   Some(search_text) => {
-  //     let rows = sqlx::query_as!(IdGeschaeft, "select idGeschaeft from fts where value match (? || '*')", search_text)
-  //     .fetch_all(&pool).await.map_err(|e| e.to_string());
-  //     rows.into()
-  //   }
-  // }
-}
+//   // match search_text {
+//   //   NONE => {
+//   //     let rows = sqlx::query_as!(IdGeschaeft, "select idGeschaeft from fts")
+//   //     .fetch_all(&pool).await.map_err(|e| e.to_string());
+//   //     rows.into()
+//   //   }
+//   //   Some(search_text) => {
+//   //     let rows = sqlx::query_as!(IdGeschaeft, "select idGeschaeft from fts where value match (? || '*')", search_text)
+//   //     .fetch_all(&pool).await.map_err(|e| e.to_string());
+//   //     rows.into()
+//   //   }
+//   // }
+// }
 
 fn main() {
   tauri::Builder::default()
-    .invoke_handler(tauri::generate_handler![
-      get_username,
-      exists_file,
-      fts_search
-    ])
+    .invoke_handler(tauri::generate_handler![get_username, exists_file])
     .plugin(TauriSql::default())
     .run(tauri::generate_context!())
     .expect("error while running tauri application");
