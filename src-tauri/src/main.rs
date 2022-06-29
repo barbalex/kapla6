@@ -24,7 +24,7 @@ fn exists_file(path: &str) -> bool {
 // querying sqlite in rust example: https://github.com/launchbadge/sqlx/issues/1596#issuecomment-1000574562
 // https://github.com/launchbadge/sqlx#quickstart
 
-use sqlx::sqlite::SqlitePoolOptions;
+//use sqlx::sqlite::SqlitePoolOptions;
 
 // use tauri::State for database pool?
 // see: https://tauri.studio/docs/guides/command/#complete-example
