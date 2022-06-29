@@ -67,7 +67,7 @@ const StyledBody = styled.div`
   overflow: hidden;
 `
 const StyledList = styled(List)`
-  overflow-y: overlay !important;
+  scrollbar-gutter: stable;
 `
 
 const Geschaefte = () => {

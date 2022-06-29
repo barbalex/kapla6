@@ -48,7 +48,7 @@ const StyledNoRowsDiv = styled.div`
   font-weight: bold;
 `
 const StyledList = styled(List)`
-  overflow-y: overlay !important;
+  scrollbar-gutter: stable;
 `
 
 const noRowsRenderer = () => <StyledNoRowsDiv>lade Daten...</StyledNoRowsDiv>
