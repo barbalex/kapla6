@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import { registerLocale, setDefaultLocale } from 'react-datepicker'
 import { de } from 'date-fns/locale'
 
@@ -26,11 +26,13 @@ const run = async () => {
   registerLocale('de', de)
   setDefaultLocale('de')
 
-  render(
+  const container = document.getElementById('root')
+  const root = createRoot(container) // create
+
+  root.render(
     <StoreProvider value={store}>
       <App />
     </StoreProvider>,
-    document.getElementById('root'),
   )
 }
 
