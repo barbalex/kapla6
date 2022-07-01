@@ -11,7 +11,27 @@
   },
   "tauri": {
     "allowlist": {
-      "all": true
+      "fs": {
+        "scope": ["$APP", "$APP/*"],
+        "all": true
+      },
+      "path": {
+        "all": true
+      },
+      "shell":{
+        "open": true
+      },
+      "process":{
+        "relaunch": true,
+        "exit": true
+      },
+      "dialog":{
+        "open": true,
+        "save":true
+      },
+      "window": {
+        "all": true
+      }
     },
     "bundle": {
       "active": true,
