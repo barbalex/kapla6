@@ -4,9 +4,10 @@ import getConfig from '../getConfig'
 const setWindowPosition = async () => {
   // get last window state
   // and set it again
-  const { lastWindowState } = await getConfig()
-  if (lastWindowState) {
-    const { x, y, width, height, maximized } = lastWindowState
+  const config = await getConfig()
+  
+  if (config?.lastWindowState) {
+    const { x, y, width, height, maximized } = config
     if (maximized) {
       window.appWindow.maximize()
     } else {
