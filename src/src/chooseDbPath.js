@@ -12,7 +12,8 @@ const chooseDbPath = async (store) => {
 
   const dbPath = await dialog.open(options)
   setDbPath(dbPath)
-  saveConfig({ dbPath })
+  console.log('chooseDbPath will saveConfig to dbPath:', dbPath)
+  await saveConfig({ dbPath })
 
   return dbPath
 }
