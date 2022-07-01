@@ -21,13 +21,11 @@ const AppInitator = () => {
     setStore(store)
     getDb({store})
       .then((db) => {
-        console.log('AppInitiator',{store, db})
         store.app.setDb(db)
         initiate(store)
       })
       .catch((error) => {
         console.log('error getting db:', error)
-        console.log('error message:', error.message)
         store.addErrorMessage(error.message)
       })
   }, [])
