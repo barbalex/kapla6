@@ -48,6 +48,7 @@ const writeExport = async (path, dataArray) => {
   // exceljs workbook.xlsx.writeFile does not work
   // so export in main thread
   const buffer = await workbook.xlsx.writeBuffer()
+  // TODO: how to do this with scoped fs in tauri.conf.json????
   await fs.writeBinaryFile({ contents: buffer, path })
   return
 }
