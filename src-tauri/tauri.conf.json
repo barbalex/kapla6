@@ -6,8 +6,8 @@
     "distDir": "../dist"
   },
   "package": {
-    "productName": "kapla",
-    "version": "0.1.0"
+    "productName": "Kapla v3",
+    "version": "3.0.1"
   },
   "tauri": {
     "allowlist": {
@@ -16,7 +16,7 @@
     "bundle": {
       "active": true,
       "category": "DeveloperTool",
-      "copyright": "",
+      "copyright": "Gabriel-Software",
       "deb": {
         "depends": []
       },
@@ -28,7 +28,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "ch.gabriel-software.kapla",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -55,10 +55,10 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 600,
+        "height": 800,
         "resizable": true,
-        "title": "Kapla",
-        "width": 800
+        "title": "Kapla v3",
+        "width": 1200
       }
     ]
   }
