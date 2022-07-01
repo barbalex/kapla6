@@ -1,7 +1,8 @@
 import React, { useContext } from 'react'
-import { AutoSizer, List } from 'react-virtualized'
+import { FixedSizeList } from 'react-window'
 import { observer } from 'mobx-react-lite'
 import styled from 'styled-components'
+import { useResizeDetector } from 'react-resize-detector'
 
 import ErrorBoundary from '../shared/ErrorBoundary'
 import RowRenderer from './RowRenderer'
@@ -66,7 +67,7 @@ const StyledBody = styled.div`
   height: calc(100vh - 96px);
   overflow: hidden;
 `
-const StyledList = styled(List)`
+const StyledList = styled(FixedSizeList)`
   scrollbar-gutter: stable;
 `
 
@@ -77,6 +78,10 @@ const Geschaefte = () => {
   const indexOfActiveId = geschaefte.findIndex(
     (g) => g.idGeschaeft === activeId,
   )
+
+  const { width = 800, height = 600, ref: resizeRef } = useResizeDetector()
+
+  console.log('Geschäfte', { height, width })
 
   return (
     <ErrorBoundary>
@@ -90,22 +95,21 @@ const Geschaefte = () => {
               <StyledKontakt>Verantwortlich</StyledKontakt>
             </StyledRow>
           </StyledHeader>
-          <StyledBody>
+          <StyledBody ref={resizeRef}>
             <ErrorBoundary>
-              <AutoSizer>
-                {({ height, width }) => (
-                  <StyledList
-                    height={height}
-                    rowCount={geschaefte.length}
-                    rowHeight={77}
-                    rowRenderer={RowRenderer}
-                    noRowsRenderer={() => <NoRowsRenderer />}
-                    width={width}
-                    scrollToIndex={indexOfActiveId}
-                    {...geschaefte}
-                  />
+              <StyledList
+                height={height}
+                itemCount={geschaefte.length}
+                itemSize={77}
+                rowRenderer={RowRenderer}
+                width={width}
+                scrollToIndex={indexOfActiveId}
+                {...geschaefte}
+              >
+                {({ index, style }) => (
+                  <RowRenderer index={index} style={style} />
                 )}
-              </AutoSizer>
+              </StyledList>
             </ErrorBoundary>
           </StyledBody>
         </StyledTable>
