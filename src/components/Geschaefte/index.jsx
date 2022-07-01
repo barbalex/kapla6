@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
 import { FixedSizeList } from 'react-window'
+import { useResizeDetector } from 'react-resize-detector'
 import { observer } from 'mobx-react-lite'
 import styled from 'styled-components'
-import { useResizeDetector } from 'react-resize-detector'
 
 import ErrorBoundary from '../shared/ErrorBoundary'
 import RowRenderer from './RowRenderer'
@@ -81,8 +81,6 @@ const Geschaefte = () => {
 
   const { width = 800, height = 600, ref: resizeRef } = useResizeDetector()
 
-  console.log('Geschäfte', { height, width })
-
   return (
     <ErrorBoundary>
       <Container>
@@ -103,7 +101,6 @@ const Geschaefte = () => {
                 itemSize={77}
                 rowRenderer={RowRenderer}
                 width={width}
-                scrollToIndex={indexOfActiveId}
                 {...geschaefte}
               >
                 {({ index, style }) => (

@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useCallback } from 'react'
-import { AutoSizer, List } from 'react-virtualized'
+import { FixedSizeList } from 'react-window'
+import { useResizeDetector } from 'react-resize-detector'
 import $ from 'jquery'
 import styled from 'styled-components'
 import { observer } from 'mobx-react-lite'
@@ -47,7 +48,7 @@ const StyledNoRowsDiv = styled.div`
   padding: 10px;
   font-weight: bold;
 `
-const StyledList = styled(List)`
+const StyledList = styled(FixedSizeList)`
   scrollbar-gutter: stable;
 `
 
@@ -113,14 +114,7 @@ const Table = () => {
   const tableWidth = (windowWidth * tableColumnWidth) / 100
   const normalFieldWidth = (tableWidth - 50) / (headers.length - 1)
 
-  const rowRenderer = useCallback(
-    ({ key, index, style }) => (
-      <div key={key} style={style}>
-        <TableItem index={index} rows={rowsSorted} headers={headers} />
-      </div>
-    ),
-    [rowsSorted, headers],
-  )
+  const { width = 800, height = 600, ref: resizeRef } = useResizeDetector()
 
   useEffect(() => {
     return () => reset()
@@ -142,21 +136,25 @@ const Table = () => {
               ))}
             </StyledTableHeaderRow>
           </StyledTableHeader>
-          <StyledTableBody>
-            <AutoSizer>
-              {({ height, width }) => (
-                <StyledList
-                  height={height}
-                  rowCount={rowsSorted.length}
-                  rowHeight={38}
-                  rowRenderer={rowRenderer}
-                  noRowsRenderer={noRowsRenderer}
-                  width={width}
-                  scrollToIndex={indexOfActiveId}
-                  {...rowsSorted}
-                />
+          <StyledTableBody ref={resizeRef}>
+            <StyledList
+              height={height}
+              itemCount={rowsSorted.length}
+              itemSize={38}
+              noRowsRenderer={noRowsRenderer}
+              width={width}
+              {...rowsSorted}
+            >
+              {({ index, style }) => (
+                <div style={style}>
+                  <TableItem
+                    index={index}
+                    rows={rowsSorted}
+                    headers={headers}
+                  />
+                </div>
               )}
-            </AutoSizer>
+            </StyledList>
           </StyledTableBody>
         </StyledTable>
       </Container>
