@@ -40,6 +40,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@vitejs/plugin-react", "npm:1.3.2"],\
             ["bootstrap", "virtual:abcc41a02143016b8d149104445e8e7b90cb804b7d978403b4dee8b4689d84f3a7026d68e384400650ac752ada97c323cf0b7065cb88742857472f67ace436c1#npm:4.6.1"],\
             ["date-fns", "npm:2.28.0"],\
+            ["eslint", "npm:8.19.0"],\
             ["exceljs", "npm:4.3.0"],\
             ["jquery", "npm:3.6.0"],\
             ["lodash", "npm:4.17.21"],\
@@ -8722,6 +8723,48 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["v8-compile-cache", "npm:2.3.0"]\
           ],\
           "linkType": "HARD"\
+        }],\
+        ["npm:8.19.0", {\
+          "packageLocation": "./.yarn/cache/eslint-npm-8.19.0-147f1e0c86-0bc9df1a3a.zip/node_modules/eslint/",\
+          "packageDependencies": [\
+            ["eslint", "npm:8.19.0"],\
+            ["@eslint/eslintrc", "npm:1.3.0"],\
+            ["@humanwhocodes/config-array", "npm:0.9.5"],\
+            ["ajv", "npm:6.12.6"],\
+            ["chalk", "npm:4.1.2"],\
+            ["cross-spawn", "npm:7.0.3"],\
+            ["debug", "virtual:ab4298b064d6d9ecd7fe3144411b92738a78b3a31c900beadb704a0521a214be5ef615a1cd1df12822278b0da742f268ed27c0ff2574b12eb9acd1cd4b2ec728#npm:4.3.4"],\
+            ["doctrine", "npm:3.0.0"],\
+            ["escape-string-regexp", "npm:4.0.0"],\
+            ["eslint-scope", "npm:7.1.1"],\
+            ["eslint-utils", "virtual:147f1e0c86a84d48481240b8e403f896c0a34824f0fc1ec5f4df888495cb5f88fc2038bd76184debe0641b1891aeae2a4c3b5d4709f3d70958d507af9ee17e38#npm:3.0.0"],\
+            ["eslint-visitor-keys", "npm:3.3.0"],\
+            ["espree", "npm:9.3.2"],\
+            ["esquery", "npm:1.4.0"],\
+            ["esutils", "npm:2.0.3"],\
+            ["fast-deep-equal", "npm:3.1.3"],\
+            ["file-entry-cache", "npm:6.0.1"],\
+            ["functional-red-black-tree", "npm:1.0.1"],\
+            ["glob-parent", "npm:6.0.2"],\
+            ["globals", "npm:13.15.0"],\
+            ["ignore", "npm:5.2.0"],\
+            ["import-fresh", "npm:3.3.0"],\
+            ["imurmurhash", "npm:0.1.4"],\
+            ["is-glob", "npm:4.0.3"],\
+            ["js-yaml", "npm:4.1.0"],\
+            ["json-stable-stringify-without-jsonify", "npm:1.0.1"],\
+            ["levn", "npm:0.4.1"],\
+            ["lodash.merge", "npm:4.6.2"],\
+            ["minimatch", "npm:3.1.2"],\
+            ["natural-compare", "npm:1.4.0"],\
+            ["optionator", "npm:0.9.1"],\
+            ["regexpp", "npm:3.2.0"],\
+            ["strip-ansi", "npm:6.0.1"],\
+            ["strip-json-comments", "npm:3.1.1"],\
+            ["text-table", "npm:0.2.0"],\
+            ["v8-compile-cache", "npm:2.3.0"]\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["eslint-config-react-app", [\
@@ -9056,6 +9099,20 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-utils", "npm:3.0.0"]\
           ],\
           "linkType": "SOFT"\
+        }],\
+        ["virtual:147f1e0c86a84d48481240b8e403f896c0a34824f0fc1ec5f4df888495cb5f88fc2038bd76184debe0641b1891aeae2a4c3b5d4709f3d70958d507af9ee17e38#npm:3.0.0", {\
+          "packageLocation": "./.yarn/__virtual__/eslint-utils-virtual-dcc1d231c4/0/cache/eslint-utils-npm-3.0.0-630b3a4013-0668fe02f5.zip/node_modules/eslint-utils/",\
+          "packageDependencies": [\
+            ["eslint-utils", "virtual:147f1e0c86a84d48481240b8e403f896c0a34824f0fc1ec5f4df888495cb5f88fc2038bd76184debe0641b1891aeae2a4c3b5d4709f3d70958d507af9ee17e38#npm:3.0.0"],\
+            ["@types/eslint", null],\
+            ["eslint", "npm:8.19.0"],\
+            ["eslint-visitor-keys", "npm:2.1.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/eslint",\
+            "eslint"\
+          ],\
+          "linkType": "HARD"\
         }],\
         ["virtual:3b3bfb190f25ed01591b1d51c8e6a15e818ab97d9cabea5c63912afc819a8f6e3ad395aaf338cd170314411b04e35eec5c8cff33dfa644476d292dcf2c5354d1#npm:3.0.0", {\
           "packageLocation": "./.yarn/__virtual__/eslint-utils-virtual-c2e00a0f83/0/cache/eslint-utils-npm-3.0.0-630b3a4013-0668fe02f5.zip/node_modules/eslint-utils/",\
@@ -11847,6 +11904,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@vitejs/plugin-react", "npm:1.3.2"],\
             ["bootstrap", "virtual:abcc41a02143016b8d149104445e8e7b90cb804b7d978403b4dee8b4689d84f3a7026d68e384400650ac752ada97c323cf0b7065cb88742857472f67ace436c1#npm:4.6.1"],\
             ["date-fns", "npm:2.28.0"],\
+            ["eslint", "npm:8.19.0"],\
             ["exceljs", "npm:4.3.0"],\
             ["jquery", "npm:3.6.0"],\
             ["lodash", "npm:4.17.21"],\
