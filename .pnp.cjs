@@ -41,6 +41,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["bootstrap", "virtual:abcc41a02143016b8d149104445e8e7b90cb804b7d978403b4dee8b4689d84f3a7026d68e384400650ac752ada97c323cf0b7065cb88742857472f67ace436c1#npm:4.6.1"],\
             ["date-fns", "npm:2.28.0"],\
             ["eslint", "npm:8.19.0"],\
+            ["eslint-plugin-react", "virtual:abcc41a02143016b8d149104445e8e7b90cb804b7d978403b4dee8b4689d84f3a7026d68e384400650ac752ada97c323cf0b7065cb88742857472f67ace436c1#npm:7.30.1"],\
             ["exceljs", "npm:4.3.0"],\
             ["jquery", "npm:3.6.0"],\
             ["lodash", "npm:4.17.21"],\
@@ -9025,6 +9026,33 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "eslint"\
           ],\
           "linkType": "HARD"\
+        }],\
+        ["virtual:abcc41a02143016b8d149104445e8e7b90cb804b7d978403b4dee8b4689d84f3a7026d68e384400650ac752ada97c323cf0b7065cb88742857472f67ace436c1#npm:7.30.1", {\
+          "packageLocation": "./.yarn/__virtual__/eslint-plugin-react-virtual-6ecfd96f58/0/cache/eslint-plugin-react-npm-7.30.1-5d85704bd1-553fb9ece6.zip/node_modules/eslint-plugin-react/",\
+          "packageDependencies": [\
+            ["eslint-plugin-react", "virtual:abcc41a02143016b8d149104445e8e7b90cb804b7d978403b4dee8b4689d84f3a7026d68e384400650ac752ada97c323cf0b7065cb88742857472f67ace436c1#npm:7.30.1"],\
+            ["@types/eslint", null],\
+            ["array-includes", "npm:3.1.5"],\
+            ["array.prototype.flatmap", "npm:1.3.0"],\
+            ["doctrine", "npm:2.1.0"],\
+            ["eslint", "npm:8.19.0"],\
+            ["estraverse", "npm:5.3.0"],\
+            ["jsx-ast-utils", "npm:3.3.1"],\
+            ["minimatch", "npm:3.1.2"],\
+            ["object.entries", "npm:1.1.5"],\
+            ["object.fromentries", "npm:2.0.5"],\
+            ["object.hasown", "npm:1.1.1"],\
+            ["object.values", "npm:1.1.5"],\
+            ["prop-types", "npm:15.8.1"],\
+            ["resolve", "patch:resolve@npm%3A2.0.0-next.4#~builtin<compat/resolve>::version=2.0.0-next.4&hash=07638b"],\
+            ["semver", "npm:6.3.0"],\
+            ["string.prototype.matchall", "npm:4.0.7"]\
+          ],\
+          "packagePeers": [\
+            "@types/eslint",\
+            "eslint"\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["eslint-plugin-react-hooks", [\
@@ -11905,6 +11933,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["bootstrap", "virtual:abcc41a02143016b8d149104445e8e7b90cb804b7d978403b4dee8b4689d84f3a7026d68e384400650ac752ada97c323cf0b7065cb88742857472f67ace436c1#npm:4.6.1"],\
             ["date-fns", "npm:2.28.0"],\
             ["eslint", "npm:8.19.0"],\
+            ["eslint-plugin-react", "virtual:abcc41a02143016b8d149104445e8e7b90cb804b7d978403b4dee8b4689d84f3a7026d68e384400650ac752ada97c323cf0b7065cb88742857472f67ace436c1#npm:7.30.1"],\
             ["exceljs", "npm:4.3.0"],\
             ["jquery", "npm:3.6.0"],\
             ["lodash", "npm:4.17.21"],\
