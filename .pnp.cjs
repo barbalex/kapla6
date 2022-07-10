@@ -56,7 +56,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react", "npm:18.2.0"],\
             ["react-datepicker", "virtual:abcc41a02143016b8d149104445e8e7b90cb804b7d978403b4dee8b4689d84f3a7026d68e384400650ac752ada97c323cf0b7065cb88742857472f67ace436c1#npm:4.8.0"],\
             ["react-dom", "virtual:abcc41a02143016b8d149104445e8e7b90cb804b7d978403b4dee8b4689d84f3a7026d68e384400650ac752ada97c323cf0b7065cb88742857472f67ace436c1#npm:18.2.0"],\
-            ["react-dropzone", "virtual:abcc41a02143016b8d149104445e8e7b90cb804b7d978403b4dee8b4689d84f3a7026d68e384400650ac752ada97c323cf0b7065cb88742857472f67ace436c1#npm:12.1.0"],\
+            ["react-dropzone", "virtual:abcc41a02143016b8d149104445e8e7b90cb804b7d978403b4dee8b4689d84f3a7026d68e384400650ac752ada97c323cf0b7065cb88742857472f67ace436c1#npm:14.2.2"],\
             ["react-error-boundary", "virtual:abcc41a02143016b8d149104445e8e7b90cb804b7d978403b4dee8b4689d84f3a7026d68e384400650ac752ada97c323cf0b7065cb88742857472f67ace436c1#npm:3.1.4"],\
             ["react-icons", "virtual:abcc41a02143016b8d149104445e8e7b90cb804b7d978403b4dee8b4689d84f3a7026d68e384400650ac752ada97c323cf0b7065cb88742857472f67ace436c1#npm:4.4.0"],\
             ["react-is", "npm:18.2.0"],\
@@ -9535,10 +9535,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["file-selector", [\
-        ["npm:0.5.0", {\
-          "packageLocation": "./.yarn/cache/file-selector-npm-0.5.0-c731a8ed22-f95a069381.zip/node_modules/file-selector/",\
+        ["npm:0.6.0", {\
+          "packageLocation": "./.yarn/cache/file-selector-npm-0.6.0-04259af1f7-7d051b6e5d.zip/node_modules/file-selector/",\
           "packageDependencies": [\
-            ["file-selector", "npm:0.5.0"],\
+            ["file-selector", "npm:0.6.0"],\
             ["tslib", "npm:2.4.0"]\
           ],\
           "linkType": "HARD"\
@@ -11957,7 +11957,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react", "npm:18.2.0"],\
             ["react-datepicker", "virtual:abcc41a02143016b8d149104445e8e7b90cb804b7d978403b4dee8b4689d84f3a7026d68e384400650ac752ada97c323cf0b7065cb88742857472f67ace436c1#npm:4.8.0"],\
             ["react-dom", "virtual:abcc41a02143016b8d149104445e8e7b90cb804b7d978403b4dee8b4689d84f3a7026d68e384400650ac752ada97c323cf0b7065cb88742857472f67ace436c1#npm:18.2.0"],\
-            ["react-dropzone", "virtual:abcc41a02143016b8d149104445e8e7b90cb804b7d978403b4dee8b4689d84f3a7026d68e384400650ac752ada97c323cf0b7065cb88742857472f67ace436c1#npm:12.1.0"],\
+            ["react-dropzone", "virtual:abcc41a02143016b8d149104445e8e7b90cb804b7d978403b4dee8b4689d84f3a7026d68e384400650ac752ada97c323cf0b7065cb88742857472f67ace436c1#npm:14.2.2"],\
             ["react-error-boundary", "virtual:abcc41a02143016b8d149104445e8e7b90cb804b7d978403b4dee8b4689d84f3a7026d68e384400650ac752ada97c323cf0b7065cb88742857472f67ace436c1#npm:3.1.4"],\
             ["react-icons", "virtual:abcc41a02143016b8d149104445e8e7b90cb804b7d978403b4dee8b4689d84f3a7026d68e384400650ac752ada97c323cf0b7065cb88742857472f67ace436c1#npm:4.4.0"],\
             ["react-is", "npm:18.2.0"],\
@@ -15588,20 +15588,20 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["react-dropzone", [\
-        ["npm:12.1.0", {\
-          "packageLocation": "./.yarn/cache/react-dropzone-npm-12.1.0-56c67f77aa-1be37433cf.zip/node_modules/react-dropzone/",\
+        ["npm:14.2.2", {\
+          "packageLocation": "./.yarn/cache/react-dropzone-npm-14.2.2-298be67ed1-ef9ea7b3b5.zip/node_modules/react-dropzone/",\
           "packageDependencies": [\
-            ["react-dropzone", "npm:12.1.0"]\
+            ["react-dropzone", "npm:14.2.2"]\
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:abcc41a02143016b8d149104445e8e7b90cb804b7d978403b4dee8b4689d84f3a7026d68e384400650ac752ada97c323cf0b7065cb88742857472f67ace436c1#npm:12.1.0", {\
-          "packageLocation": "./.yarn/__virtual__/react-dropzone-virtual-b736040198/0/cache/react-dropzone-npm-12.1.0-56c67f77aa-1be37433cf.zip/node_modules/react-dropzone/",\
+        ["virtual:abcc41a02143016b8d149104445e8e7b90cb804b7d978403b4dee8b4689d84f3a7026d68e384400650ac752ada97c323cf0b7065cb88742857472f67ace436c1#npm:14.2.2", {\
+          "packageLocation": "./.yarn/__virtual__/react-dropzone-virtual-3ac692d3ef/0/cache/react-dropzone-npm-14.2.2-298be67ed1-ef9ea7b3b5.zip/node_modules/react-dropzone/",\
           "packageDependencies": [\
-            ["react-dropzone", "virtual:abcc41a02143016b8d149104445e8e7b90cb804b7d978403b4dee8b4689d84f3a7026d68e384400650ac752ada97c323cf0b7065cb88742857472f67ace436c1#npm:12.1.0"],\
+            ["react-dropzone", "virtual:abcc41a02143016b8d149104445e8e7b90cb804b7d978403b4dee8b4689d84f3a7026d68e384400650ac752ada97c323cf0b7065cb88742857472f67ace436c1#npm:14.2.2"],\
             ["@types/react", "npm:18.0.15"],\
             ["attr-accept", "npm:2.2.2"],\
-            ["file-selector", "npm:0.5.0"],\
+            ["file-selector", "npm:0.6.0"],\
             ["prop-types", "npm:15.8.1"],\
             ["react", "npm:18.2.0"]\
           ],\
