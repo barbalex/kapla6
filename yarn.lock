@@ -2974,12 +2974,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:18.0.5":
-  version: 18.0.5
-  resolution: "@types/react-dom@npm:18.0.5"
+"@types/react-dom@npm:18.0.6":
+  version: 18.0.6
+  resolution: "@types/react-dom@npm:18.0.6"
   dependencies:
     "@types/react": "*"
-  checksum: cd48b81950f499b52a3f0c08261f00046f9b7c96699fa249c9664e257e820daf6ecac815cd1028cebc9d105094adc39d047d1efd79214394b8b2d515574c0787
+  checksum: db571047af1a567631758700b9f7d143e566df939cfe5fbf7535347cc0c726a1cdbb5e3f8566d076e54cf708b6c1166689de194a9ba09ee35efc9e1d45911685
   languageName: node
   linkType: hard
 
@@ -2992,7 +2992,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:18.0.14":
+"@types/react@npm:*":
   version: 18.0.14
   resolution: "@types/react@npm:18.0.14"
   dependencies:
@@ -3000,6 +3000,17 @@ __metadata:
     "@types/scheduler": "*"
     csstype: ^3.0.2
   checksum: 608eb57a383eedc54c79949673e5e8314f6b0c61542bff58721c8c47a18c23e2832e77c656050c2c2c004b62cf25582136c7c56fe1b6263a285c065fae31dbcf
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:18.0.15":
+  version: 18.0.15
+  resolution: "@types/react@npm:18.0.15"
+  dependencies:
+    "@types/prop-types": "*"
+    "@types/scheduler": "*"
+    csstype: ^3.0.2
+  checksum: e22cc388d1c145aa184787e44dc28db4789976c704cd5db475c170bb76a560eb81def5f346cfe750949bb3d43ad88822b8cbb9f19b1286e3795892a8263e7715
   languageName: node
   linkType: hard
 
@@ -8807,8 +8818,8 @@ __metadata:
   dependencies:
     "@tauri-apps/api": latest
     "@tauri-apps/cli": latest
-    "@types/react": 18.0.14
-    "@types/react-dom": 18.0.5
+    "@types/react": 18.0.15
+    "@types/react-dom": 18.0.6
     "@vitejs/plugin-react": 1.3.2
     bootstrap: 4.6.1
     date-fns: 2.28.0
@@ -8818,10 +8829,10 @@ __metadata:
     jquery: 3.6.0
     lodash: 4.17.21
     mobx: 6.6.1
-    mobx-react: 7.5.1
+    mobx-react: 7.5.2
     mobx-react-lite: 3.4.0
     mobx-state-tree: 5.1.5
-    moment: 2.29.3
+    moment: 2.29.4
     popper.js: 1.16.1
     prettier: 2.7.1
     prop-types: 15.8.1
@@ -8843,7 +8854,7 @@ __metadata:
     styled-components: 5.3.5
     tauri-plugin-sql-api: "github:tauri-apps/tauri-plugin-sql"
     use-debounce: 7.0.1
-    vite: 2.9.13
+    vite: 2.9.14
   languageName: unknown
   linkType: soft
 
@@ -9499,9 +9510,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mobx-react@npm:7.5.1":
-  version: 7.5.1
-  resolution: "mobx-react@npm:7.5.1"
+"mobx-react@npm:7.5.2":
+  version: 7.5.2
+  resolution: "mobx-react@npm:7.5.2"
   dependencies:
     mobx-react-lite: ^3.4.0
   peerDependencies:
@@ -9512,7 +9523,7 @@ __metadata:
       optional: true
     react-native:
       optional: true
-  checksum: ed9dbe4b854d2b5d93a4543445fc86310b6ea4e7e8869c032fe3e4b8735d8d3bcd5f31f8846856bb2c991098c3415919eb24e0bbfbcbed5a1e2488b954eb0c0f
+  checksum: 71c45d20600f22c72bb92fc6197bbbe925ceac542cfc1770c9bcb5533c0adb80f299b2910af746d6225b2cf3939dbaaf50533a4c917b55abd418519cba5701b2
   languageName: node
   linkType: hard
 
@@ -9532,10 +9543,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"moment@npm:2.29.3":
-  version: 2.29.3
-  resolution: "moment@npm:2.29.3"
-  checksum: 2e780e36d9a1823c08a1b6313cbb08bd01ecbb2a9062095820a34f42c878991ccba53abaa6abb103fd5c01e763724f295162a8c50b7e95b4f1c992ef0772d3f0
+"moment@npm:2.29.4":
+  version: 2.29.4
+  resolution: "moment@npm:2.29.4"
+  checksum: 0ec3f9c2bcba38dc2451b1daed5daded747f17610b92427bebe1d08d48d8b7bdd8d9197500b072d14e326dd0ccf3e326b9e3d07c5895d3d49e39b6803b76e80e
   languageName: node
   linkType: hard
 
@@ -13509,9 +13520,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:2.9.13":
-  version: 2.9.13
-  resolution: "vite@npm:2.9.13"
+"vite@npm:2.9.14":
+  version: 2.9.14
+  resolution: "vite@npm:2.9.14"
   dependencies:
     esbuild: ^0.14.27
     fsevents: ~2.3.2
@@ -13534,7 +13545,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: a5e501b920a448c352e9b3836019dea56c523535f8e8540160708c2e164d84da6655ae39abbba1e2888092f5c6cd03dd06279852422359b51be601914645f49f
+  checksum: f78b54f58482ea97d385e36873ae1aa4744c5e467c1d6d4e0835bd55494d2d8f6ce763f17c241c66104be687d5ee535b8e1e96c14210c9ba0c343fe78c58f694
   languageName: node
   linkType: hard
 
