@@ -28,13 +28,11 @@
       "shortDescription": "",
       "longDescription": "",
       "deb": {
-        "depends": [],
-        "useBootstrapper": false
+        "depends": []
       },
       "macOS": {
         "frameworks": [],
         "minimumSystemVersion": "",
-        "useBootstrapper": false,
         "exceptionDomain": "",
         "signingIdentity": null,
         "entitlements": null
@@ -49,7 +47,15 @@
       "active": false
     },
     "allowlist": {
-      "all": true
+      "all": true,
+      "window": {
+        "all": true
+      },
+      "fs": {
+        "readFile": true,
+        "writeFile": true,
+        "scope": ["$APP/Roaming/Kapla/**", "$APP"]
+      }
     },
     "windows": [
       {

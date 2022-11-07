@@ -1,8 +1,9 @@
-import { app, window } from '@tauri-apps/api'
+import { getVersion } from '@tauri-apps/api/app'
+import { appWindow } from '@tauri-apps/api/window'
 
 const setWindowTitle = async () => {
-  const appVersion = await app.getVersion()
-  window.appWindow.setTitle(`Kapla v${appVersion}`)
+  const appVersion = await getVersion()
+  appWindow.setTitle(`Kapla v${appVersion}`)
 }
 
 export default setWindowTitle

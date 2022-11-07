@@ -3,7 +3,7 @@ import Dropzone from 'react-dropzone'
 import { FaRegTimesCircle } from 'react-icons/fa'
 import { observer } from 'mobx-react-lite'
 import styled from 'styled-components'
-import { shell } from '@tauri-apps/api'
+import { open } from '@tauri-apps/api/shell'
 
 import ErrorBoundary from '../shared/ErrorBoundary'
 import storeContext from '../../storeContext'
@@ -102,7 +102,7 @@ const AreaLinks = () => {
                   href={link.url}
                   onClick={(event) => {
                     event.preventDefault()
-                    shell.open(link.url)
+                    open(link.url)
                   }}
                 >
                   {link.url}

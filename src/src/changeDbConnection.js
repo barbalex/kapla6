@@ -1,4 +1,4 @@
-import { process } from '@tauri-apps/api'
+import { relaunch } from '@tauri-apps/api/process'
 
 import chooseDbPath from './chooseDbPath'
 
@@ -9,7 +9,7 @@ const changeDbConnection = async (store) => {
     return console.log('Error after choosing db:', chooseError)
   }
   setTimeout(async () => {
-    process.relaunch()
+    relaunch()
   })
 }
 

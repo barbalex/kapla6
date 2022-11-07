@@ -1,4 +1,4 @@
-import { dialog } from '@tauri-apps/api'
+import { open } from '@tauri-apps/api/dialog'
 
 const options = {
   title: 'Datenbank für Kapla wählen',
@@ -10,7 +10,7 @@ const options = {
 const chooseDbPath = async (store) => {
   const { setDbPath, saveConfig } = store.app
 
-  const dbPath = await dialog.open(options)
+  const dbPath = await open(options)
   setDbPath(dbPath)
   saveConfig({ dbPath })
 

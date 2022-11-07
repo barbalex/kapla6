@@ -1,5 +1,5 @@
-import { tauri } from '@tauri-apps/api'
+import { invoke } from '@tauri-apps/api/tauri'
 
-const existsFile = async (path) => await tauri.invoke('exists_file', { path })
+const existsFile = async (path) => await invoke('exists_file', { path })
 
 export default existsFile

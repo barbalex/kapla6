@@ -1,4 +1,4 @@
-import { window } from '@tauri-apps/api'
+import { appWindow, LogicalPosition, LogicalSize } from '@tauri-apps/api/window'
 import getConfig from '../getConfig'
 
 const setWindowPosition = async () => {
@@ -8,13 +8,13 @@ const setWindowPosition = async () => {
   if (lastWindowState) {
     const { x, y, width, height, maximized } = lastWindowState
     if (maximized) {
-      window.appWindow.maximize()
+      appWindow.maximize()
     } else {
       if (x !== undefined && y !== undefined) {
-        window.appWindow.setPosition(new window.LogicalPosition(x, y))
+        appWindow.setPosition(new LogicalPosition(x, y))
       }
       if (width !== undefined && height !== undefined) {
-        window.appWindow.setSize(new window.LogicalSize(width, height))
+        appWindow.setSize(new LogicalSize(width, height))
       }
     }
   }

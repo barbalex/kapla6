@@ -1,7 +1,7 @@
 import { types, getParent, flow } from 'mobx-state-tree'
 import _ from 'lodash'
 import moment from 'moment'
-import { tauri } from '@tauri-apps/api'
+import { invoke } from '@tauri-apps/api/tauri'
 
 import filterGeschaefte from '../src/filterGeschaefte'
 import sortGeschaefteFiltered from '../src/sortGeschaefteFiltered'
@@ -168,7 +168,7 @@ export default types
           // result = yield store.app.db.select(
           //   `select idGeschaeft from fts where value match '"${filterValue}"*'`,
           // )
-          result = yield tauri.invoke('exists_file', {
+          result = yield invoke('exists_file', {
             searchtext: filterValue,
             dbpath: store.app.dbpath,
           })

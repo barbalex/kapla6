@@ -1,7 +1,7 @@
 /**
  * writes a dataArray to an Excel workbook
  */
-import { fs } from '@tauri-apps/api'
+import { writeBinaryFile } from '@tauri-apps/api/fs'
 import Excel from 'exceljs'
 
 const writeExport = async (path, dataArray) => {
@@ -48,7 +48,7 @@ const writeExport = async (path, dataArray) => {
   // exceljs workbook.xlsx.writeFile does not work
   // so export in main thread
   const buffer = await workbook.xlsx.writeBuffer()
-  await fs.writeBinaryFile({ contents: buffer, path })
+  await writeBinaryFile(path, buffer)
   return
 }
 
