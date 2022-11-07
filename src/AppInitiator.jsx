@@ -19,7 +19,7 @@ const AppInitator = () => {
   useEffect(() => {
     const store = createStore().create()
     setStore(store)
-    getDb(store)
+    getDb({ store })
       .then((db) => {
         store.app.setDb(db)
         initiate(store)

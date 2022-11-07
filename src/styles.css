@@ -1,6 +1,3 @@
-@import '../node_modules/bootstrap/dist/css/bootstrap.css';
-@import '../node_modules/react-datepicker/dist/react-datepicker.css';
-
 body {
   position: relative;
   overflow-y: hidden;
@@ -12,7 +9,7 @@ body {
   border-radius: 0;
 }
 
-.control-label { 
+.control-label {
   color: #757575;
   font-size: 12px;
   font-weight: 500;

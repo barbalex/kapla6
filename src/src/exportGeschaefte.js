@@ -3,8 +3,12 @@
  */
 
 //import { ipcRenderer } from 'electron'
+<<<<<<< HEAD
 import { save } from '@tauri-apps/api/dialog'
 import { open } from '@tauri-apps/api/shell'
+=======
+import { dialog, shell } from '@tauri-apps/api'
+>>>>>>> a79a3ecd31038633eb9c0ef7e88351a2fa1bbc45
 import writeExport from './writeExport'
 
 function getDataArrayFromExportObjects(exportObjects) {
@@ -42,7 +46,11 @@ const dialogOptions = {
 const exportGeschaefte = async (geschaefte, messageShow) => {
   // TODO: implement with tauri
   // const path = await ipcRenderer.invoke('save-dialog-get-path', dialogOptions)
+<<<<<<< HEAD
   const path = await save(dialogOptions)
+=======
+  const path = await dialog.save(dialogOptions)
+>>>>>>> a79a3ecd31038633eb9c0ef7e88351a2fa1bbc45
   if (path) {
     messageShow(true, 'Der Export wird aufgebaut...', '')
     // set timeout so message appears before exceljs starts working
@@ -57,7 +65,11 @@ const exportGeschaefte = async (geschaefte, messageShow) => {
         return
       }
       messageShow(false, '', '')
+<<<<<<< HEAD
       open({ defaultPath: path })
+=======
+      shell.open(path)
+>>>>>>> a79a3ecd31038633eb9c0ef7e88351a2fa1bbc45
     })
   }
 }

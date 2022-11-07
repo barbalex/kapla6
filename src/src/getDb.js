@@ -5,7 +5,7 @@ import getConfig from './getConfig'
 import existsFile from './existsFile'
 import chooseDbPath from './chooseDbPath'
 
-const getDb = async (store) => {
+const getDb = async ({store}) => {
   const { addErrorMessage } = store
   const {
     setDbPath,
@@ -14,23 +14,28 @@ const getDb = async (store) => {
     setLastWindowState,
   } = store.app
 
-  const config = await getConfig()
+  const config = await getConfig() 
 
-  if (config.dbPath) {
+  if (config?.dbPath) {
     setDbPath(config.dbPath)
   }
-  if (config.tableColumnWidth) {
+  if (config?.tableColumnWidth) {
     setTableColumnWidth(config.tableColumnWidth)
   }
-  if (config.geschaefteColumnWidth) {
+  if (config?.geschaefteColumnWidth) {
     setGeschaefteColumnWidth(config.geschaefteColumnWidth)
   }
-  if (config.lastWindowState) {
+  if (config?.lastWindowState) {
     setLastWindowState(config.lastWindowState)
   }
-  let dbPath = config.dbPath || standardDbPath
+  let dbPath = config?.dbPath || standardDbPath
 
-  const dbExists = await existsFile(dbPath)
+  let dbExists
+  try {
+    dbExists = await existsFile(dbPath)
+  } catch (error) {
+    console.log('getDb error calling existsFile:', error)
+  }
   if (!dbExists) {
     // TODO: because title can't be set in options, need to pop to tell user she needs to choose db path
     dbPath = await chooseDbPath(store)
@@ -47,6 +52,7 @@ const getDb = async (store) => {
     console.log('error opening db:', error)
     addErrorMessage(error?.message ?? error)
   }
+  
   return db
 }
 
