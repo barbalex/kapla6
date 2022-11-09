@@ -23,6 +23,7 @@ const fetchInitialData = async (store) => {
   // wait vor next version after tauri v1.0.0-beta.8
   // https://github.com/tauri-apps/tauri/issues/2996
   listen('tauri://close-requested', async (e) => {
+    console.log('tauri://close-requested')
     // ensure data is saved if user entered it in a field, then directly clicked the app close icon
     document.activeElement.blur()
 
