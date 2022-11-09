@@ -27,6 +27,8 @@ dist-ssr
 /target/
 WixTools
 
+.env
+
 # sqlx macro needs a db to analyze types at dev runtime
 # absolute path did not seem to work
 # so copied db into code but ignore here
