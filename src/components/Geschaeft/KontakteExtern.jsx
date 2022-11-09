@@ -50,7 +50,6 @@ const GeschaefteKontakteExtern = ({ tabIndex }) => {
     ).map((o) => ({ label: `${o.name} ${o.vorname}`, value: o.id }))
     return externeOptionsSorted
     // value is added to update list after adding Kontakt to remove choosen Kontakt from list
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeId, externeOptionsPassed, geschaefteKontakteExtern, value])
 
   return (

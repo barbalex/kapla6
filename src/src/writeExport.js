@@ -1,11 +1,7 @@
 /**
  * writes a dataArray to an Excel workbook
  */
-<<<<<<< HEAD
 import { writeBinaryFile } from '@tauri-apps/api/fs'
-=======
-import { fs } from '@tauri-apps/api'
->>>>>>> a79a3ecd31038633eb9c0ef7e88351a2fa1bbc45
 import Excel from 'exceljs'
 
 const writeExport = async (path, dataArray) => {
@@ -52,12 +48,7 @@ const writeExport = async (path, dataArray) => {
   // exceljs workbook.xlsx.writeFile does not work
   // so export in main thread
   const buffer = await workbook.xlsx.writeBuffer()
-<<<<<<< HEAD
   await writeBinaryFile(path, buffer)
-=======
-  // TODO: how to do this with scoped fs in tauri.conf.json????
-  await fs.writeBinaryFile({ contents: buffer, path })
->>>>>>> a79a3ecd31038633eb9c0ef7e88351a2fa1bbc45
   return
 }
 

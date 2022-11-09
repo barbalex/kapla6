@@ -91,7 +91,6 @@ const Geschaeft = () => {
     if (type === 'select-one') {
       setValue({ field, value })
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   const blur = useCallback(
     (e) => {

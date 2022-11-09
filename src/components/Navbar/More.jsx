@@ -7,11 +7,7 @@ import {
 } from 'reactstrap'
 import styled from 'styled-components'
 import { observer } from 'mobx-react-lite'
-<<<<<<< HEAD
 import { open } from '@tauri-apps/api/shell'
-=======
-import { shell } from '@tauri-apps/api'
->>>>>>> a79a3ecd31038633eb9c0ef7e88351a2fa1bbc45
 
 import storeContext from '../../storeContext'
 import changeDbConnection from '../../src/changeDbConnection'
@@ -43,20 +39,12 @@ const StyledDropdownItem = styled(DropdownItem)`
 `
 
 const onGetProjektbeschreibung = () => {
-<<<<<<< HEAD
   open(
-=======
-  shell.open(
->>>>>>> a79a3ecd31038633eb9c0ef7e88351a2fa1bbc45
     'https://github.com/barbalex/kapla3/raw/master/app/etc/Projektbeschreibung.pdf',
   )
 }
 const onClickIssues = () => {
-<<<<<<< HEAD
   open('https://github.com/barbalex/kapla3/issues')
-=======
-  shell.open('https://github.com/barbalex/kapla3/issues')
->>>>>>> a79a3ecd31038633eb9c0ef7e88351a2fa1bbc45
 }
 
 const OptionsNav = () => {

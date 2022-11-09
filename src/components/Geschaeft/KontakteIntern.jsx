@@ -58,7 +58,6 @@ const GeschaefteKontakteIntern = ({ tabIndex }) => {
     }))
     return interneOptionsSorted
     // value is added to update list after adding Kontakt to remove choosen Kontakt from list
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeId, geschaefteKontakteIntern, interneOptionsPassed, value])
 
   return (

@@ -95,7 +95,6 @@ const Geschaeft = () => {
     if (type === 'select-one') {
       setValue({ field, value })
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   const blur = useCallback(
     (e) => {
@@ -153,7 +152,7 @@ const Geschaeft = () => {
   const nrOfFieldsBeforeFristen = nrOfFieldsBeforePv + nrOfPvFields
   const nrOfFieldsBeforePersonen = nrOfFieldsBeforeFristen + 7
   const viewIsNarrow = areaGeschaefteWidth < 860
-  let ScrollContainer = ScrollContainerRegular
+  const ScrollContainer = ScrollContainerRegular
   let Wrapper
   if (viewIsNarrow) {
     if (showAreaForGeschaeftsart) {

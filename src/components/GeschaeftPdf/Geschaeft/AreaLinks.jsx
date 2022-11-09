@@ -1,12 +1,8 @@
 import React, { useContext } from 'react'
 import { observer } from 'mobx-react-lite'
 import styled from 'styled-components'
-<<<<<<< HEAD
 
 import { open } from '@tauri-apps/api/shell'
-=======
-import { shell } from '@tauri-apps/api'
->>>>>>> a79a3ecd31038633eb9c0ef7e88351a2fa1bbc45
 
 import ErrorBoundary from '../../shared/ErrorBoundary'
 import storeContext from '../../../storeContext'
@@ -72,11 +68,7 @@ const AreaLinks = () => {
                   href={link.url}
                   onClick={(event) => {
                     event.preventDefault()
-<<<<<<< HEAD
                     open(link.url)
-=======
-                    shell.open(link.url)
->>>>>>> a79a3ecd31038633eb9c0ef7e88351a2fa1bbc45
                   }}
                 >
                   {link.url}

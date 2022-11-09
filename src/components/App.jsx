@@ -1,9 +1,5 @@
 import React, { useContext } from 'react'
 import { observer } from 'mobx-react-lite'
-<<<<<<< HEAD
-import useDetectPrint from 'use-detect-print'
-=======
->>>>>>> a79a3ecd31038633eb9c0ef7e88351a2fa1bbc45
 import styled from 'styled-components'
 
 import GeschaefteLayout from './GeschaefteLayout'
@@ -12,10 +8,7 @@ import TableLayout from './TableLayout'
 import Navbar from './Navbar'
 import Errors from './Errors'
 import storeContext from '../storeContext'
-<<<<<<< HEAD
-=======
 import useDetectPrint from '../src/useDetectPrint'
->>>>>>> a79a3ecd31038633eb9c0ef7e88351a2fa1bbc45
 //import GeschaeftPdf from './GeschaeftPdf'
 //import Pages from './Pages'
 
