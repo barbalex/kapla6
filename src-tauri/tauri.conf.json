@@ -54,7 +54,7 @@
       "fs": {
         "readFile": true,
         "writeFile": true,
-        "scope": ["$APP/Roaming/Kapla/**", "$APP"]
+        "scope": ["**", "$APP/Roaming/Kapla/**", "$APP"]
       }
     },
     "windows": [
