@@ -66,12 +66,12 @@ const ScrollContainer = styled.div`
 `
 const Wrapper = styled.div`
   display: grid;
-  grid-template-columns: ${props =>
+  grid-template-columns: ${(props) =>
     props['data-width'] === 'narrow'
       ? 'repeat(1, 100%)'
       : 'repeat(12, 8.33333%)'};
   grid-template-rows: auto;
-  grid-template-areas: ${props =>
+  grid-template-areas: ${(props) =>
     getTemplateAreas(
       props['data-width'],
       props['data-showareaforgeschaeftsart'],
@@ -80,7 +80,8 @@ const Wrapper = styled.div`
 
 const FilterFields = () => {
   const store = useContext(storeContext)
-  let { filterFields, filterByFields } = store.geschaefte
+  let { filterFields } = store.geschaefte
+  const { filterByFields } = store.geschaefte
   const { geschaefteColumnWidth } = store.app
 
   const changeComparator = useCallback(
@@ -93,7 +94,7 @@ const FilterFields = () => {
         value: null,
       }
       if (filterFields.forEach) {
-        filterFields.forEach(f => {
+        filterFields.forEach((f) => {
           if (f.field !== name) {
             newFilterFields.push({ ...f })
           } else {
@@ -108,7 +109,7 @@ const FilterFields = () => {
     [filterByFields, store.geschaefte],
   )
   const change = useCallback(
-    e => {
+    (e) => {
       const { filterFields } = store.geschaefte
       const { type, name, dataset } = e.target
       const newFilterFields = []
@@ -118,7 +119,7 @@ const FilterFields = () => {
         value: null,
       }
       if (filterFields.forEach) {
-        filterFields.forEach(f => {
+        filterFields.forEach((f) => {
           if (f.field !== name) {
             newFilterFields.push(f)
           } else if (f.comparator) {
@@ -148,7 +149,7 @@ const FilterFields = () => {
   // build a fields hash for the values
   const values = {}
   if (filterFields.forEach) {
-    filterFields.forEach(field => {
+    filterFields.forEach((field) => {
       values[field.field] = field.value
     })
   } else {
