@@ -60,10 +60,9 @@
     "windows": [
       {
         "title": "Kapla v3",
-        "width": 1200,
-        "height": 800,
         "resizable": true,
-        "fullscreen": false
+        "fullscreen": false,
+        "maximized": true
       }
     ],
     "security": {
