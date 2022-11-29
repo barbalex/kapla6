@@ -3,14 +3,14 @@
   "version": "3.alpha.1",
   "private": true,
   "dependencies": {
-    "@babel/core": "7.20.2",
+    "@babel/core": "7.20.5",
     "@babel/eslint-parser": "7.19.1",
     "@tauri-apps/api": "1.2.0",
     "bootstrap": "4.6.1",
     "date-fns": "2.29.3",
-    "eslint": "8.27.0",
+    "eslint": "8.28.0",
     "eslint-plugin-import": "2.26.0",
-    "eslint-plugin-react": "7.31.10",
+    "eslint-plugin-react": "7.31.11",
     "eslint-plugin-react-hooks": "4.6.0",
     "exceljs": "4.3.0",
     "jquery": "3.6.1",
@@ -21,14 +21,14 @@
     "mobx-state-tree": "5.1.6",
     "moment": "2.29.4",
     "popper.js": "1.16.1",
-    "prettier": "2.7.1",
+    "prettier": "2.8.0",
     "prop-types": "15.8.1",
     "react": "18.2.0",
     "react-datepicker": "4.8.0",
     "react-dom": "18.2.0",
     "react-dropzone": "12.1.0",
     "react-error-boundary": "3.1.4",
-    "react-icons": "4.6.0",
+    "react-icons": "4.7.1",
     "react-is": "18.2.0",
     "react-linkify": "0.x",
     "react-resize-detector": "7.1.2",
@@ -40,7 +40,7 @@
     "reactstrap": "8.10.1",
     "styled-components": "5.3.6",
     "tauri-plugin-sql-api": "github:tauri-apps/tauri-plugin-sql",
-    "use-debounce": "8.0.4",
+    "use-debounce": "9.0.1",
     "use-detect-print": "0.0.2"
   },
   "dependencies-comments": {},
@@ -72,6 +72,6 @@
     ]
   },
   "devDependencies": {
-    "@tauri-apps/cli": "1.2.0"
+    "@tauri-apps/cli": "1.2.1"
   }
 }
